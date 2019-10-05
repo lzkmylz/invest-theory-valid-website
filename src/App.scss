@@ -1,0 +1,16 @@
+.background-dark {
+  color: #fff;
+  background-color: #151617;
+}
+
+@media screen and (max-width: 426px) {
+  .desktop {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 426px) {
+  .mobile {
+    display: none;
+  }
+}
