@@ -6,7 +6,9 @@ class Router extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Route path="/" component={Index} exact={true} />
+        <Switch>
+          <Route path="/" component={Index} exact={true} />
+        </Switch>
       </BrowserRouter>
     );
   }
