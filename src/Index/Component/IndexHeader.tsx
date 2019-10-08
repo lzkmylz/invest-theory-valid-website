@@ -40,9 +40,9 @@ class IndexHeader extends React.Component {
           </Menu>
         </div>
         <ul className="header-nav-container desktop" >
-          <li className="header-nav-item" >Products</li>
-          <li className="header-nav-item" >Pricing</li>
-          <li className="header-nav-item" >Support</li>
+          <li className="header-nav-item" ><p>Products</p></li>
+          <li className="header-nav-item" ><p>Pricing</p></li>
+          <li className="header-nav-item" ><p>Support</p></li>
         </ul>
         <h4 className="header-login desktop" >
           <p>Login</p>

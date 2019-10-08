@@ -1,6 +1,6 @@
 .header-container {
   display: flex;
-  margin: 0 10px;
+  margin: 0 20px;
 }
 
 .header-title {
@@ -12,17 +12,18 @@
   flex: 3;
   justify-content: center;
   align-items: center;
+  margin: auto;
 
   .header-nav-item {
     flex: 1;
     list-style: none;
-    text-align: right;
+    text-align: center;
     margin: 0 5px;
   }
 
   .header-nav-item:hover {
     cursor: pointer;
-    opacity: 0.6;
+    border-bottom: solid 2px #ffffff;
   }
 }
 
@@ -30,12 +31,15 @@
   display: flex;
   flex: 1;
   justify-content: center;
+  align-items: center;
   color: #fa6400;
+  margin: auto;
+}
 
-  p:hover {
-    color: white;
+.header-login:hover {
+  color: white;
     cursor: pointer;
-  }
+    border-bottom: solid 2px #ffffff;
 }
 
 .header-menu {
