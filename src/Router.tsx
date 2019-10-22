@@ -8,6 +8,7 @@ class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" component={Index} exact={true} />
+          <Route pathh="/login" component={Index} />
         </Switch>
       </BrowserRouter>
     );

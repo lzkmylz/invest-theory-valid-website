@@ -16,7 +16,7 @@ class TitleContent extends React.Component {
         <Fade delay={2000} bottom={true} >
           <p className="content-style" >We Use Big Data And Morden Finance Theory To Valid Your Investment And Get Better Return.</p>
         </Fade>
-        <Button variant="contained" color="primary" size="small" >
+        <Button className="title-content-continue" variant="contained" color="primary" size="small" >
           Get Start
         </Button>
       </div>

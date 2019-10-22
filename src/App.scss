@@ -1,6 +1,17 @@
+@import '~antd/dist/antd.css';
+
 .background-dark {
   color: #fff;
   background-color: #151617;
+}
+
+body {
+  height: 100vh;
+}
+
+.background-light {
+  color: black;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 426px) {
@@ -13,4 +24,8 @@
   .mobile {
     display: none;
   }
+}
+
+p {
+  margin-bottom: 0;
 }

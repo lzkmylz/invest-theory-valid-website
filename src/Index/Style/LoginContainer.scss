@@ -1,0 +1,29 @@
+.login-content {
+  display: flex;
+}
+
+.login-input-container {
+  flex: 1;
+  text-align: center;
+}
+
+@media screen and (min-width: 426px) {
+  .img-flex-container {
+    flex: 1;
+  }
+
+  .login-img-container {
+    width: 424px;
+    height: 238px;
+    margin: 0 auto;
+  
+    .login-side-img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.login-title {
+  color: #fff;
+}
