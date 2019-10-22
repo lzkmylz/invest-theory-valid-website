@@ -45,7 +45,7 @@ class IndexHeader extends React.Component {
           <li className="header-nav-item" ><p>Support</p></li>
         </ul>
         <h4 className="header-login desktop" >
-          <a href="/login" className="header-login-a" >Login</a>
+          <a href="/login" className="header-login-a" >Sign In</a>
         </h4>
       </div>
     );

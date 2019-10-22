@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
+import RegisterForm from '../Component/RegisterForm';
 
 class RegisterContainer extends React.Component {
   render() {
@@ -8,7 +9,7 @@ class RegisterContainer extends React.Component {
       <div className="register-container background-dark" >
         <Header />
         <div className="register-content" >
-          RegisterForm
+          <RegisterForm />
         </div>
         <Footer />
       </div>
