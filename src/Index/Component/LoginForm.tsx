@@ -54,9 +54,9 @@ class LoginForm extends React.Component<Iprops> {
             Forgot password
           </a>
           <Button type="primary" htmlType="submit" className="login-form-button" size="small" >
-            Log in
+            Sign In
           </Button>
-          Or <a href="/register" className="login-registernow" >register now!</a>
+          Or <a href="/register" className="login-registernow" >Sign Up now!</a>
         </Form.Item>
       </Form>
     );

@@ -16,7 +16,7 @@ class LoginContainer extends React.Component {
             </div>
           </div>
           <div className="login-input-container" >
-            <h3 className="login-title" >Login</h3>
+            <h3 className="login-title" >Sign In</h3>
             <LoginForm />
           </div>
         </div>

@@ -6,7 +6,6 @@ import {
   Icon,
   Row,
   Col,
-  Checkbox,
   Button,
 } from 'antd';
 
