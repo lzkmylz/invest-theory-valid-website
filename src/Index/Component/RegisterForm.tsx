@@ -4,57 +4,17 @@ import {
   Input,
   Tooltip,
   Icon,
-  Cascader,
-  Select,
   Row,
   Col,
   Checkbox,
   Button,
-  AutoComplete,
 } from 'antd';
 
 import '../Style/RegisterForm.scss';
 
-const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 type Iprops = Readonly<{
   form: any
 }>
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 class RegisterForm extends React.Component<Iprops> {
   state = {
@@ -105,7 +65,6 @@ class RegisterForm extends React.Component<Iprops> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -129,18 +88,6 @@ class RegisterForm extends React.Component<Iprops> {
         },
       },
     };
-    const prefixSelector = getFieldDecorator('prefix', {
-      initialValue: '86',
-    })(
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>,
-    );
-
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form" >
@@ -209,15 +156,6 @@ class RegisterForm extends React.Component<Iprops> {
               <Button size="small" type="primary" >Get captcha</Button>
             </Col>
           </Row>
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox style={{ fontSize: 12 }}>
-              I have read the <a href="">agreement</a>
-            </Checkbox>,
-          )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
