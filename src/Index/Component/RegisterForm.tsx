@@ -13,8 +13,13 @@ import {
   AutoComplete,
 } from 'antd';
 
+import '../Style/RegisterForm.scss';
+
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
+type Iprops = Readonly<{
+  form: any
+}>
 
 const residences = [
   {
@@ -51,27 +56,27 @@ const residences = [
   },
 ];
 
-class RegisterForm extends React.Component {
+class RegisterForm extends React.Component<Iprops> {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e:any) => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+    this.props.form.validateFieldsAndScroll((err:any, values:any) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
     });
   };
 
-  handleConfirmBlur = e => {
+  handleConfirmBlur = (e:any) => {
     const { value } = e.target;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
   };
 
-  compareToFirstPassword = (rule, value, callback) => {
+  compareToFirstPassword = (rule:any, value:String, callback:Function) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!');
@@ -80,7 +85,7 @@ class RegisterForm extends React.Component {
     }
   };
 
-  validateToNextPassword = (rule, value, callback) => {
+  validateToNextPassword = (rule:any, value:String, callback:Function) => {
     const { form } = this.props;
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
@@ -88,8 +93,8 @@ class RegisterForm extends React.Component {
     callback();
   };
 
-  handleWebsiteChange = value => {
-    let autoCompleteResult;
+  handleWebsiteChange = (value:any) => {
+    let autoCompleteResult:any;
     if (!value) {
       autoCompleteResult = [];
     } else {
@@ -138,7 +143,7 @@ class RegisterForm extends React.Component {
     ));
 
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form" >
         <Form.Item label="E-mail">
           {getFieldDecorator('email', {
             rules: [
@@ -151,7 +156,7 @@ class RegisterForm extends React.Component {
                 message: 'Please input your E-mail!',
               },
             ],
-          })(<Input />)}
+          })(<Input size="small" />)}
         </Form.Item>
         <Form.Item label="Password" hasFeedback>
           {getFieldDecorator('password', {
@@ -164,7 +169,7 @@ class RegisterForm extends React.Component {
                 validator: this.validateToNextPassword,
               },
             ],
-          })(<Input.Password />)}
+          })(<Input.Password size="small" />)}
         </Form.Item>
         <Form.Item label="Confirm Password" hasFeedback>
           {getFieldDecorator('confirm', {
@@ -177,7 +182,7 @@ class RegisterForm extends React.Component {
                 validator: this.compareToFirstPassword,
               },
             ],
-          })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+          })(<Input.Password onBlur={this.handleConfirmBlur} size="small" />)}
         </Form.Item>
         <Form.Item
           label={
@@ -191,43 +196,17 @@ class RegisterForm extends React.Component {
         >
           {getFieldDecorator('nickname', {
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item label="Habitual Residence">
-          {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [
-              { type: 'array', required: true, message: 'Please select your habitual residence!' },
-            ],
-          })(<Cascader options={residences} />)}
-        </Form.Item>
-        <Form.Item label="Phone Number">
-          {getFieldDecorator('phone', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
-          })(<Input addonBefore={prefixSelector} style={{ width: '100%' }} />)}
-        </Form.Item>
-        <Form.Item label="Website">
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>,
-          )}
+          })(<Input size="small" />)}
         </Form.Item>
         <Form.Item label="Captcha" extra="We must make sure that your are a human.">
           <Row gutter={8}>
             <Col span={12}>
               {getFieldDecorator('captcha', {
                 rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(<Input />)}
+              })(<Input size="small" />)}
             </Col>
             <Col span={12}>
-              <Button>Get captcha</Button>
+              <Button size="small" type="primary" >Get captcha</Button>
             </Col>
           </Row>
         </Form.Item>
@@ -235,14 +214,14 @@ class RegisterForm extends React.Component {
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
           })(
-            <Checkbox>
+            <Checkbox style={{ fontSize: 12 }}>
               I have read the <a href="">agreement</a>
             </Checkbox>,
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Register
+            Sign Up
           </Button>
         </Form.Item>
       </Form>
@@ -251,4 +230,4 @@ class RegisterForm extends React.Component {
 }
 
 
-export default Form.create({ name: 'register' })(RegisterForm);;
+export default Form.create({ name: 'register' })(RegisterForm);
