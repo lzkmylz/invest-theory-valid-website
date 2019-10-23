@@ -20,7 +20,7 @@ class IndexHeader extends React.Component {
     return (
       <div className="header-container" >
         <h1 className="header-title" >
-          InvestValid
+          <a href="/" >InvestValid</a>
         </h1>
         <div className="header-menu mobile" >
           <IconButton onClick={this.handleClick} >
@@ -46,6 +46,9 @@ class IndexHeader extends React.Component {
         </ul>
         <h4 className="header-login desktop" >
           <a href="/login" className="header-login-a" >Sign In</a>
+          <div className="header-signup-div" >
+            <a href="/register" className="header-signup-a" >Sign Up</a>
+          </div>
         </h4>
       </div>
     );

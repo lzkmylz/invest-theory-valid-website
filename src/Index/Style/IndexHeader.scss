@@ -11,6 +11,13 @@
   margin: auto 0;
   font-weight: 800;
   font-size: 28px;
+
+  a {
+    color: inherit;
+  }
+  a:hover {
+    color: #fff;
+  }
 }
 
 .header-nav-container {
@@ -45,17 +52,29 @@
   align-items: center;
   color: #fa6400;
   margin: auto 0;
+  text-align: center;
 
   .header-login-a {
+    flex: 1;
     text-decoration: none;
     color: inherit;
   }
-}
-
-.header-login:hover {
-  color: white;
-    cursor: pointer;
-    border-bottom: solid 2px #ffffff;
+  .header-login-a:hover {
+    color: #fff;
+  }
+  .header-signup-div {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    border-radius: 5px;
+  }
+  .header-signup-div:hover {
+    color: #fff;
+  }
+  .header-signup-a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .header-menu {
