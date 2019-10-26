@@ -11,7 +11,7 @@ phases:
     commands:
       - echo Deployment started on 'date'
       - echo Syncing S3 Content
-      - aws s3 sync ./build/ s3://invest-valid
+      - aws s3 sync ./build/ s3://investvalid.com
   build:
     commands:
       - echo Invalidating CloudFront Cache
