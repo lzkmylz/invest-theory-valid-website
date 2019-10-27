@@ -36,7 +36,9 @@ class IndexHeader extends React.Component {
             <MenuItem onClick={this.handleClose}>Products</MenuItem>
             <MenuItem onClick={this.handleClose}>Pricing</MenuItem>
             <MenuItem onClick={this.handleClose}>Support</MenuItem>
-            <MenuItem onClick={this.handleClose}>Login</MenuItem>
+            <MenuItem onClick={this.handleClose}>
+              <a className="header-menuitem" href="/login" >Sign In</a>
+            </MenuItem>
           </Menu>
         </div>
         <ul className="header-nav-container desktop" >

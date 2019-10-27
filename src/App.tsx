@@ -6,7 +6,7 @@ import 'reset-css';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="App background-dark">
       <Router />
     </div>
   );
