@@ -4,10 +4,11 @@ import {
   Input,
   Tooltip,
   Icon,
-  Row,
-  Col,
   Button,
 } from 'antd';
+import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+import { observer } from 'mobx-react';
+import UserStore from '../Store/UserStore';
 
 import '../Style/RegisterForm.scss';
 
@@ -15,17 +16,38 @@ type Iprops = Readonly<{
   form: any
 }>
 
+@observer
 class RegisterForm extends React.Component<Iprops> {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
+    passwordInvalidate: undefined,
   };
 
   handleSubmit = (e:any) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err:any, values:any) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        // handle cognito register here
+        console.log(values)
+        var dataEmail = {
+          Name: 'email',
+          Value: values.email
+        };
+        var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var userPool = UserStore.userPool;
+        userPool.signUp(values.email, values.password, [attributeEmail], [], 
+          (err: any, result: any) => {
+            if(!err) {
+              console.log(result.user);
+              UserStore.setCognitoUser(result);
+            } else {
+              if(err.code === "InvalidPasswordException") {
+                this.setState({ passwordInvalidate: "error" });
+              }
+              console.log(err);
+            }
+          })
       }
     });
   };
@@ -49,21 +71,15 @@ class RegisterForm extends React.Component<Iprops> {
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
-    callback();
-  };
-
-  handleWebsiteChange = (value:any) => {
-    let autoCompleteResult:any;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+    if (this.state.passwordInvalidate === "error") {
+      this.setState({ passwordInvalidate: undefined });
     }
-    this.setState({ autoCompleteResult });
+    callback();
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const passwordErrorHelp = "Passowrd should more than 8 words, contain number, lower and upper case letters";
 
     const formItemLayout = {
       labelCol: {
@@ -104,7 +120,12 @@ class RegisterForm extends React.Component<Iprops> {
             ],
           })(<Input size="small" />)}
         </Form.Item>
-        <Form.Item label="Password" hasFeedback>
+        <Form.Item
+          label="Password"
+          validateStatus={this.state.passwordInvalidate}
+          help={this.state.passwordInvalidate === "error" ? passwordErrorHelp : ""}
+          hasFeedback
+        >
           {getFieldDecorator('password', {
             rules: [
               {
@@ -117,7 +138,11 @@ class RegisterForm extends React.Component<Iprops> {
             ],
           })(<Input.Password size="small" />)}
         </Form.Item>
-        <Form.Item label="Confirm Password" hasFeedback>
+        <Form.Item
+          label="Confirm Password"
+          validateStatus={this.state.passwordInvalidate}
+          hasFeedback
+        >
           {getFieldDecorator('confirm', {
             rules: [
               {
@@ -143,18 +168,6 @@ class RegisterForm extends React.Component<Iprops> {
           {getFieldDecorator('nickname', {
             rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
           })(<Input size="small" />)}
-        </Form.Item>
-        <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(<Input size="small" />)}
-            </Col>
-            <Col span={12}>
-              <Button size="small" type="primary" >Get captcha</Button>
-            </Col>
-          </Row>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
