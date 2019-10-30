@@ -5,7 +5,13 @@ import RegisterForm from '../Component/RegisterForm';
 
 import '../Style/RegisterContainer.scss';
 
-class RegisterContainer extends React.Component {
+type Iprops = Readonly<{
+  history: {
+    push(url: String): void
+  }
+}>
+
+class RegisterContainer extends React.Component<Iprops> {
   render() {
     return (
       <div className="register-container background-dark" >
@@ -14,7 +20,7 @@ class RegisterContainer extends React.Component {
           <p>Sign Up</p>
         </div>
         <div className="register-content" >
-          <RegisterForm />
+          <RegisterForm history={this.props.history} />
         </div>
         <Footer />
       </div>

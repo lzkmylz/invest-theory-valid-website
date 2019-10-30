@@ -6,19 +6,19 @@ import {
   Icon,
   Button,
 } from 'antd';
-import { CognitoUserAttribute, ISignUpResult, NodeCallback } from 'amazon-cognito-identity-js';
+import { FormComponentProps } from 'antd/lib/form/Form';
+import { CognitoUserAttribute } from 'amazon-cognito-identity-js';
 import { observer } from 'mobx-react';
-import { Redirect } from 'react-router-dom';
 import UserStore from '../Store/UserStore';
 
 import '../Style/RegisterForm.scss';
 
-type Iprops = Readonly<{
-  form: any
-}>
+interface Iprops extends FormComponentProps {
+  history: any;
+}
 
 @observer
-class RegisterForm extends React.Component<Iprops> {
+class RegisterForm extends React.Component<Iprops, any> {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
@@ -39,8 +39,8 @@ class RegisterForm extends React.Component<Iprops> {
         userPool.signUp(values.email, values.password, [attributeEmail], [], 
           (err: any, result: any) => {
             if(!err) {
-              UserStore.setCognitoUser(result);
-              return <Redirect to="/" />
+              UserStore.setCognitoUser(result.user);
+              this.props.history.push('/signup-confirm');
             } else {
               if(err.code === "InvalidPasswordException") {
                 this.setState({ passwordInvalidate: "error" });
@@ -180,4 +180,4 @@ class RegisterForm extends React.Component<Iprops> {
 }
 
 
-export default Form.create({ name: 'register' })(RegisterForm);
+export default Form.create<Iprops>({ name: 'register' })(RegisterForm);
