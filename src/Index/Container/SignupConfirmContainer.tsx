@@ -3,6 +3,8 @@ import { Form, Input, Button } from 'antd';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 
+import '../Style/SignupConfirmContainer.scss';
+
 type Iprops = Readonly<{
   form: any
 }>
@@ -26,12 +28,13 @@ class SignupConfirmContainer extends React.Component<Iprops> {
           <p>We have send an Email with captcha to your email, please enter it in the input below:</p>
         </div>
         <div className="signup-confirm-content" >
-          <Form onSubmit={this.handleSubmit} >
+          <Form onSubmit={this.handleSubmit} className="signup-confirm-form" >
             <Form.Item
+              className="signup-confirm-captha-input"
               validateStatus={this.state.captchaError}
             >
-              {getFieldDecorator('username', {
-                rules: [{ required: true, message: 'Please input your username!' }],
+              {getFieldDecorator('captcha', {
+                rules: [{ required: true, message: 'Please input your captcha!' }],
               })(
                 <Input
                   placeholder="captcha"
@@ -51,4 +54,4 @@ class SignupConfirmContainer extends React.Component<Iprops> {
   }
 }
 
-export default SignupConfirmContainer;
+export default Form.create({ name: 'signup-confirm' })(SignupConfirmContainer);

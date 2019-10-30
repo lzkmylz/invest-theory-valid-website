@@ -1,0 +1,27 @@
+.signup-confirm-title {
+  text-align: center;
+
+  h1 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+.signup-confirm-captha-input {
+  max-width: 200px;
+}
+
+.signup-confirm-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-confirm-captha-input {
+  margin-right: 20px !important;
+}
