@@ -6,8 +6,9 @@ import {
   Icon,
   Button,
 } from 'antd';
-import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+import { CognitoUserAttribute, ISignUpResult, NodeCallback } from 'amazon-cognito-identity-js';
 import { observer } from 'mobx-react';
+import { Redirect } from 'react-router-dom';
 import UserStore from '../Store/UserStore';
 
 import '../Style/RegisterForm.scss';
@@ -29,18 +30,17 @@ class RegisterForm extends React.Component<Iprops> {
     this.props.form.validateFieldsAndScroll((err:any, values:any) => {
       if (!err) {
         // handle cognito register here
-        console.log(values)
         var dataEmail = {
           Name: 'email',
           Value: values.email
         };
-        var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributeEmail = new CognitoUserAttribute(dataEmail);
         var userPool = UserStore.userPool;
         userPool.signUp(values.email, values.password, [attributeEmail], [], 
           (err: any, result: any) => {
             if(!err) {
-              console.log(result.user);
               UserStore.setCognitoUser(result);
+              return <Redirect to="/" />
             } else {
               if(err.code === "InvalidPasswordException") {
                 this.setState({ passwordInvalidate: "error" });
