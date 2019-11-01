@@ -1,6 +1,6 @@
 export var config = {
     cognito: {
-        userPoolId: 'ap-southeast-1_6ngWuoOgv',
-        userPoolClientId: '51nslj5h7t12q830057af566l1'
+        userPoolId: process.env.REACT_APP_AWS_INVESTVALID_USERPOOL_ID,
+        userPoolClientId: process.env.REACT_APP_AWS_INVESTVALID_USERPOOL_CLIENT_ID
     }
 };

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { AuthenticationDetails, CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import {
+  AuthenticationDetails,
+  CognitoUser,
+  CognitoUserSession,
+} from 'amazon-cognito-identity-js';
 import { observer } from 'mobx-react';
-import * as AWS from 'aws-sdk/global';
 import UserStore from '../Store/UserStore';
-import { config } from '../Constants';
 
 import '../Style/LoginForm.scss';
 
@@ -23,26 +25,16 @@ class LoginForm extends React.Component<Iprops> {
           Password: values.password
         };
         var authenticationDetails = new AuthenticationDetails(authenticationData);
+        var userPool = UserStore.getUserPool();
         var userData = {
           Username: values.username,
-          Pool: UserStore.userPool
+          Pool: userPool
         };
         var cognitoUser = new CognitoUser(userData);
         cognitoUser.authenticateUser(authenticationDetails, {
           onSuccess: function(result: CognitoUserSession) {
-            var loginUrl = `cognito-idp.${AWS.config.region}.amazonaws.com/${config.cognito.userPoolId}`;
-            var options = {
-              IdentityPoolId: config.cognito.userPoolId,
-              Logins: {}
-            }
-            options.Logins[loginUrl] = result.getIdToken().getJwtToken();
-            var credentials =  new AWS.CognitoIdentityCredentials(options);
-            credentials.refresh(error => {
-              if(error) {
-                console.log(error);
-              }
-              AWS.config.credentials = credentials;
-            });
+            var accessToken = result.getAccessToken().getJwtToken();
+            UserStore.setAccessToken(accessToken);
           },
           onFailure: function(err) {
             alert(err.message || JSON.stringify(err));
