@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import UserStore from '../Store/UserStore';
 
 interface Iprops extends FormComponentProps {
-
   history: any;
 }
 

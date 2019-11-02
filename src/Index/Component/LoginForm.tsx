@@ -5,14 +5,15 @@ import {
   CognitoUser,
   CognitoUserSession,
 } from 'amazon-cognito-identity-js';
+import { FormComponentProps } from 'antd/lib/form/Form';
 import { observer } from 'mobx-react';
-import UserStore from '../Store/UserStore';
+import UserStore, { UserAttributes } from '../Store/UserStore';
 
 import '../Style/LoginForm.scss';
 
-type Iprops = Readonly<{
-  form: any
-}>
+interface Iprops extends FormComponentProps {
+  history: any;
+}
 
 @observer
 class LoginForm extends React.Component<Iprops> {
@@ -32,14 +33,36 @@ class LoginForm extends React.Component<Iprops> {
         };
         var cognitoUser = new CognitoUser(userData);
         cognitoUser.authenticateUser(authenticationDetails, {
-          onSuccess: function(result: CognitoUserSession) {
+          onSuccess: (result: CognitoUserSession) => {
             var accessToken = result.getAccessToken().getJwtToken();
             UserStore.setAccessToken(accessToken);
+            cognitoUser.getUserAttributes((err, result) => {
+              if(err) {
+                alert(err.message || JSON.stringify(err));
+                  return;
+              }
+              if(result === undefined) return;
+              var userAttributes: UserAttributes = {
+                email: '',
+                nickname: '',
+                sub: '',
+                emailVerified: false
+              };
+              for (let i = 0; i < result.length; i++) {
+                if(result[i].getName() === "email") userAttributes.email = result[i].getValue();
+                if(result[i].getName() === "nickname") userAttributes.nickname = result[i].getValue();
+                if(result[i].getName() === "sub") userAttributes.sub = result[i].getValue();
+                if(result[i].getName() === "email_verified") userAttributes.emailVerified = Boolean(result[i].getValue());
+              }
+              UserStore.setUserAttributes(userAttributes);
+              this.props.history.push("/");
+            });
           },
           onFailure: function(err) {
             alert(err.message || JSON.stringify(err));
           }
         });
+        
       }
     });
   };
@@ -90,4 +113,4 @@ class LoginForm extends React.Component<Iprops> {
   }
 }
 
-export default Form.create({ name: 'login' })(LoginForm);
+export default Form.create<Iprops>({ name: 'login' })(LoginForm);

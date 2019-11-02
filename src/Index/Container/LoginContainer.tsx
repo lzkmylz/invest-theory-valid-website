@@ -4,7 +4,13 @@ import Footer from '../Component/IndexFooter';
 import LoginForm from '../Component/LoginForm';
 import '../Style/LoginContainer.scss';
 
-class LoginContainer extends React.Component {
+type Iprops = Readonly<{
+  history: {
+    push(url: String): void
+  }
+}>
+
+class LoginContainer extends React.Component<Iprops> {
   render() {    
     return (
       <div className="login-container background-dark" >
@@ -17,7 +23,7 @@ class LoginContainer extends React.Component {
           </div>
           <div className="login-input-container" >
             <h1 className="login-title" >Sign In</h1>
-            <LoginForm />
+            <LoginForm history={this.props.history} />
           </div>
         </div>
         <Footer />

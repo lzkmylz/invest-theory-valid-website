@@ -2,7 +2,16 @@ import { observable, action } from 'mobx';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { config } from '../Constants';
 
+// private variable types
+export type UserAttributes = {
+  email: String,
+  nickname: String,
+  sub: String,
+  emailVerified: Boolean
+}
+
 class UserStore {
+  // obervable variables
   @observable userPool = new CognitoUserPool({
     UserPoolId: config.cognito.userPoolId ? config.cognito.userPoolId : '',
     ClientId: config.cognito.userPoolClientId ? config.cognito.userPoolClientId : ''
@@ -12,7 +21,14 @@ class UserStore {
     Pool: this.userPool
   });
   @observable accessToken: String = '';
+  @observable userAttributes: UserAttributes = {
+    email: '',
+    nickname: '',
+    sub: '',
+    emailVerified: false
+  };
 
+  // actions
   @action setCognitoUser = (cognitoUser: CognitoUser) => {
     this.cognitoUser = cognitoUser;
   }
@@ -21,6 +37,9 @@ class UserStore {
   }
   @action getUserPool = () => {
     return this.userPool;
+  }
+  @action setUserAttributes = (attributes: UserAttributes) => {
+    this.userAttributes = attributes;
   }
 }
 
