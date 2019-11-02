@@ -17,7 +17,7 @@ class SignupConfirmForm extends React.Component<Iprops> {
   handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err: any, values: any) => {
-      //console.log(UserStore.cognitoUser, UserStore.userPool, values)
+      if(UserStore.cognitoUser == null) return;
       UserStore.cognitoUser.confirmRegistration(values.captcha, true, (err, result) => {
         if(!err) {
           this.props.history.push('/')

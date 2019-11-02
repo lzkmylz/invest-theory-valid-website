@@ -1,9 +1,10 @@
 import React from 'react';
-import '../Style/IndexHeader.scss';
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { List } from '@material-ui/icons';
 import { observer } from 'mobx-react';
+import { Menu as AntdMenu, Dropdown, Icon } from 'antd';
 import UserStore from '../Store/UserStore';
+import '../Style/IndexHeader.scss';
 
 @observer
 class IndexHeader extends React.Component {
@@ -19,7 +20,18 @@ class IndexHeader extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  handleLogOut = () => {
+    UserStore.UserLogOut();
+  }
+
   render() {
+    const menu = (
+      <AntdMenu>
+        <AntdMenu.Item>
+          <div onClick={this.handleLogOut} >Log Out</div>
+        </AntdMenu.Item>
+      </AntdMenu>
+    );
     return (
       <div className="header-container" >
         <h1 className="header-title" >
@@ -54,7 +66,11 @@ class IndexHeader extends React.Component {
             Boolean(UserStore.accessToken) ? (
               <div>
                 <span>Welcome, &nbsp;</span>
-                <a className="header-userspace" >{UserStore.userAttributes.nickname}</a>
+                <Dropdown overlay={menu} >
+                  <span className="header-dropdown" >
+                    {UserStore.userAttributes.nickname}<Icon type="down" />
+                  </span>
+                </Dropdown>
               </div>
             ) : (
               <div className="header-login desktop" >

@@ -16,10 +16,7 @@ class UserStore {
     UserPoolId: config.cognito.userPoolId ? config.cognito.userPoolId : '',
     ClientId: config.cognito.userPoolClientId ? config.cognito.userPoolClientId : ''
   });
-  @observable cognitoUser: CognitoUser = new CognitoUser({
-    Username: '',
-    Pool: this.userPool
-  });
+  @observable cognitoUser: CognitoUser | null = null;
   @observable accessToken: String = '';
   @observable userAttributes: UserAttributes = {
     email: '',
@@ -29,7 +26,7 @@ class UserStore {
   };
 
   // actions
-  @action setCognitoUser = (cognitoUser: CognitoUser) => {
+  @action setCognitoUser = (cognitoUser: CognitoUser | null) => {
     this.cognitoUser = cognitoUser;
   }
   @action setAccessToken = (accessToken: String) => {
@@ -44,6 +41,7 @@ class UserStore {
   @action initUserFromLocalStorage = () => {
     var cognitoUser = this.userPool.getCurrentUser();
     if(cognitoUser != null) {
+      this.setCognitoUser(cognitoUser);
       cognitoUser.getSession((err: Error, result: any) => {
         if(err) {
           console.log(err);
@@ -70,6 +68,19 @@ class UserStore {
           }
           this.setUserAttributes(userAttributes);
         });
+      });
+    }
+  }
+  @action UserLogOut = () => {
+    if(this.cognitoUser != null) {
+      this.cognitoUser.signOut();
+      this.setCognitoUser(null);
+      this.setAccessToken('');
+      this.setUserAttributes({
+        email: '',
+        nickname: '',
+        sub: '',
+        emailVerified: false
       });
     }
   }
