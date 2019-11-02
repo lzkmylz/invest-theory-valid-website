@@ -45,6 +45,20 @@
   }
 }
 
+.header-login-container {
+  display: flex;
+  flex: 1;
+  margin: auto 0;;
+}
+
+.header-userspace {
+  text-decoration: none;
+  color: #fa6400;
+}
+.header-userspace:hover {
+  color: #fff;
+}
+
 .header-login {
   display: flex;
   flex: 1;

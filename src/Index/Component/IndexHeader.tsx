@@ -2,6 +2,7 @@ import React from 'react';
 import '../Style/IndexHeader.scss';
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { List } from '@material-ui/icons';
+import UserStore from '../Store/UserStore';
 
 class IndexHeader extends React.Component {
   state = {
@@ -46,12 +47,24 @@ class IndexHeader extends React.Component {
           <li className="header-nav-item" ><p>Pricing</p></li>
           <li className="header-nav-item" ><p>Support</p></li>
         </ul>
-        <h4 className="header-login desktop" >
-          <a href="/login" className="header-login-a" >Sign In</a>
-          <div className="header-signup-div" >
-            <a href="/register" className="header-signup-a" >Sign Up</a>
-          </div>
-        </h4>
+        <div className="header-login-container" >
+          {
+            Boolean(UserStore.accessToken) ? (
+              <div>
+                <span>Welcome, &nbsp;</span>
+                <a className="header-userspace" >{UserStore.userAttributes.nickname}</a>
+              </div>
+            ) : (
+              <div className="header-login desktop" >
+                <a href="/login" className="header-login-a" >Sign In</a>
+                <div className="header-signup-div" >
+                  <a href="/register" className="header-signup-a" >Sign Up</a>
+                </div>
+              </div>
+            )
+          }
+          
+        </div>
       </div>
     );
   }
