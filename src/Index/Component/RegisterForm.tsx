@@ -23,6 +23,7 @@ class RegisterForm extends React.Component<Iprops, any> {
     confirmDirty: false,
     autoCompleteResult: [],
     passwordInvalidate: undefined,
+    emailInvalidate: undefined
   };
 
   handleSubmit = (e:any) => {
@@ -30,24 +31,39 @@ class RegisterForm extends React.Component<Iprops, any> {
     this.props.form.validateFieldsAndScroll((err:any, values:any) => {
       if (!err) {
         // handle cognito register here
+        var attributeList = [];
         var dataEmail = {
           Name: 'email',
           Value: values.email
         };
+        var dataNickname = {
+          Name: 'nickname',
+          Value: values.nickname
+        }
         var attributeEmail = new CognitoUserAttribute(dataEmail);
-        var userPool = UserStore.userPool;
-        userPool.signUp(values.email, values.password, [attributeEmail], [], 
+        var attributeNickname = new CognitoUserAttribute(dataNickname);
+        attributeList.push(attributeEmail);
+        attributeList.push(attributeNickname);
+        var userPool = UserStore.getUserPool();
+        userPool.signUp(values.email, values.password, attributeList, [], 
           (err: any, result: any) => {
             if(!err) {
               UserStore.setCognitoUser(result.user);
               this.props.history.push('/signup-confirm');
             } else {
-              if(err.code === "InvalidPasswordException") {
-                this.setState({ passwordInvalidate: "error" });
+                if(err.code === "InvalidPasswordException") {
+                  this.setState({
+                    passwordInvalidate: "error",
+                  });
+                }
+                if(err.code === "UsernameExistsException") {
+                  this.setState({
+                    emailInvalidate: "error",
+                  });
+                console.log(err)
               }
-              console.log(err);
             }
-          })
+          });
       }
     });
   };
@@ -79,7 +95,7 @@ class RegisterForm extends React.Component<Iprops, any> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const passwordErrorHelp = "Passowrd should more than 8 words, contain number, lower and upper case letters";
+    const { passwordInvalidate, emailInvalidate } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -106,7 +122,11 @@ class RegisterForm extends React.Component<Iprops, any> {
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="register-form" >
-        <Form.Item label="E-mail">
+        <Form.Item
+          label="E-mail"
+          validateStatus={emailInvalidate}
+          help={emailInvalidate === "error" ? "Email has already signed up. Please use another Email address or sign in." : ""}
+        >
           {getFieldDecorator('email', {
             rules: [
               {
@@ -122,8 +142,8 @@ class RegisterForm extends React.Component<Iprops, any> {
         </Form.Item>
         <Form.Item
           label="Password"
-          validateStatus={this.state.passwordInvalidate}
-          help={this.state.passwordInvalidate === "error" ? passwordErrorHelp : ""}
+          validateStatus={passwordInvalidate}
+          help={passwordInvalidate === "error" ? "Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
           hasFeedback
         >
           {getFieldDecorator('password', {
