@@ -10,6 +10,7 @@ phases:
   pre_build:
     commands:
       - echo build resources
+      - npm install
       - npm run build
       - echo Deployment started on 'date'
       - echo Syncing S3 Content
