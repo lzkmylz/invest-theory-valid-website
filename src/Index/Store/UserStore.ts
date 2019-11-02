@@ -41,6 +41,38 @@ class UserStore {
   @action setUserAttributes = (attributes: UserAttributes) => {
     this.userAttributes = attributes;
   }
+  @action initUserFromLocalStorage = () => {
+    var cognitoUser = this.userPool.getCurrentUser();
+    if(cognitoUser != null) {
+      cognitoUser.getSession((err: Error, result: any) => {
+        if(err) {
+          console.log(err);
+        }
+        var accessToken = result.getAccessToken().getJwtToken();
+        this.setAccessToken(accessToken);
+        if(cognitoUser === null) return;
+        cognitoUser.getUserAttributes((err, result) => {
+          if(err) {
+            console.log(err.message);
+          }
+          if(result === undefined) return;
+          var userAttributes: UserAttributes = {
+            email: '',
+            nickname: '',
+            sub: '',
+            emailVerified: false
+          };
+          for (let i = 0; i < result.length; i++) {
+            if(result[i].getName() === "email") userAttributes.email = result[i].getValue();
+            if(result[i].getName() === "nickname") userAttributes.nickname = result[i].getValue();
+            if(result[i].getName() === "sub") userAttributes.sub = result[i].getValue();
+            if(result[i].getName() === "email_verified") userAttributes.emailVerified = Boolean(result[i].getValue());
+          }
+          this.setUserAttributes(userAttributes);
+        });
+      });
+    }
+  }
 }
 
 export default new UserStore();

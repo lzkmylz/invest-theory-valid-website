@@ -2,8 +2,10 @@ import React from 'react';
 import '../Style/IndexHeader.scss';
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { List } from '@material-ui/icons';
+import { observer } from 'mobx-react';
 import UserStore from '../Store/UserStore';
 
+@observer
 class IndexHeader extends React.Component {
   state = {
     anchorEl: null,
