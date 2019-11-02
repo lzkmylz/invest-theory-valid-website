@@ -9,6 +9,8 @@ phases:
       - pip install awscli
   pre_build:
     commands:
+      - echo build resources
+      - npm run build
       - echo Deployment started on 'date'
       - echo Syncing S3 Content
       - aws s3 sync ./build/ s3://investvalid.com

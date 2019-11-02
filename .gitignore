@@ -10,7 +10,7 @@
 
 # production
 # we need build for CI/CD
-#/build
+/build
 
 # misc
 .DS_Store
