@@ -17,6 +17,10 @@ interface Iprops extends FormComponentProps {
 
 @observer
 class LoginForm extends React.Component<Iprops> {
+  state = {
+    notAuthorized: undefined,
+  }
+
   handleSubmit = (e:any) => {
     e.preventDefault();
     this.props.form.validateFields((err:any, values:any) => {
@@ -38,8 +42,7 @@ class LoginForm extends React.Component<Iprops> {
             UserStore.setAccessToken(accessToken);
             cognitoUser.getUserAttributes((err, result) => {
               if(err) {
-                alert(err.message || JSON.stringify(err));
-                  return;
+                console.log(err.message);
               }
               if(result === undefined) return;
               var userAttributes: UserAttributes = {
@@ -58,8 +61,10 @@ class LoginForm extends React.Component<Iprops> {
               this.props.history.push("/");
             });
           },
-          onFailure: function(err) {
-            alert(err.message || JSON.stringify(err));
+          onFailure: (err) => {
+            if(err.code === "NotAuthorizedException") {
+              this.setState({ notAuthorized: "error" });
+            }
           }
         });
         
@@ -67,11 +72,18 @@ class LoginForm extends React.Component<Iprops> {
     });
   };
 
+  resetErrorState = () => {
+    this.setState({ notAuthorized: undefined });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { notAuthorized } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
-        <Form.Item>
+        <Form.Item
+          validateStatus={notAuthorized}
+        >
           {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
@@ -80,10 +92,14 @@ class LoginForm extends React.Component<Iprops> {
               placeholder="Username"
               id="login-username"
               size="small"
+              onChange={this.resetErrorState}
             />,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item
+          validateStatus={notAuthorized}
+          help={notAuthorized ? "Incorrect username or password" : ""}
+        >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
@@ -92,6 +108,7 @@ class LoginForm extends React.Component<Iprops> {
               type="password"
               placeholder="Password"
               size="small"
+              onChange={this.resetErrorState}
             />,
           )}
         </Form.Item>
