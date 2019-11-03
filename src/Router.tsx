@@ -11,6 +11,7 @@ class Router extends React.Component {
           <Route path="/login" component={Index} />
           <Route path="/register" component={Index} />
           <Route path="/signup-confirm" component={Index} />
+          <Route path="/reset-password" component={Index} />
         </Switch>
       </BrowserRouter>
     );

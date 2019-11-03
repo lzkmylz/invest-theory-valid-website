@@ -19,11 +19,13 @@ class SignupConfirmContainer extends React.Component<Iprops> {
     return (
       <div className="signup-confirm-container background-dark" >
         <Header history={this.props.history} />
-        <div className="signup-confirm-title" >
-          <h1>Confirm Your Email</h1>
-          <p>We have send an Email with captcha to your email, please enter it in the input below:</p>
+        <div className="signup-confirm-main" >
+          <div className="signup-confirm-title" >
+            <h1>Confirm Your Email</h1>
+            <p>We have send an Email with captcha to your email, please enter it in the input below:</p>
+          </div>
+          <SignupConfirmForm history={this.props.history} />
         </div>
-        <SignupConfirmForm history={this.props.history} />
         <Footer />
       </div>
     );

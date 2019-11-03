@@ -59,7 +59,6 @@ class LoginForm extends React.Component<Iprops> {
               }
               UserStore.setUserAttributes(userAttributes);
               if(!values.remember) {
-                console.log('clear cache')
                 localStorage.clear();
               }
               this.props.history.push("/");

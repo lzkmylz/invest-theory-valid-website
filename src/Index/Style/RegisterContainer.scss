@@ -1,3 +1,13 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.register-main {
+  flex: 1 0 auto;
+}
+
 .register-content {
   margin: 0 auto;
   width: 60%;

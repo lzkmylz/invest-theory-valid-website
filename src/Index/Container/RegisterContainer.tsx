@@ -16,11 +16,13 @@ class RegisterContainer extends React.Component<Iprops> {
     return (
       <div className="register-container background-dark" >
         <Header history={this.props.history} />
-        <div className="register-title" >
-          <p>Sign Up</p>
-        </div>
-        <div className="register-content" >
-          <RegisterForm history={this.props.history} />
+        <div className="register-main" >
+          <div className="register-title" >
+            <p>Sign Up</p>
+          </div>
+          <div className="register-content" >
+            <RegisterForm history={this.props.history} />
+          </div>
         </div>
         <Footer />
       </div>

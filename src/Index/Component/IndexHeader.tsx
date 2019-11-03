@@ -25,6 +25,9 @@ class IndexHeader extends React.Component<Iprops> {
       case "signup":
         this.props.history.push("/register");
         return;
+      case "resetpassword":
+        this.props.history.push("/reset-password");
+        return;
       default:
         console.log(e);
     }

@@ -5,6 +5,7 @@ import IndexContainer from './Container/IndexContainer';
 import LoginContainer from './Container/LoginContainer';
 import RegisterContainer from './Container/RegisterContainer';
 import SignupConfirmContainer from './Container/SignupConfirmContainer';
+import ResetPasswordContainer from './Container/ResetPasswordContainer';
 import UserStore from './Store/UserStore';
 
 @observer
@@ -17,6 +18,7 @@ class Index extends React.Component {
         <Route path="/login" component={LoginContainer} />
         <Route path="/register" component={RegisterContainer} />
         <Route path="/signup-confirm" component={SignupConfirmContainer} />
+        <Route path="/reset-password" component={ResetPasswordContainer} />
       </Switch>
     );
   }
