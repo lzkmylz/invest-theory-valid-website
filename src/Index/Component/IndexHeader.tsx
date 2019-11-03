@@ -28,10 +28,10 @@ class IndexHeader extends React.Component {
     const menu = (
       <AntdMenu>
         <AntdMenu.Item>
-          <a>Dashboard</a>
+          <a href="/" >Dashboard</a>
         </AntdMenu.Item>
         <AntdMenu.Item>
-          <a>Reset Password</a>
+          <a href="/" >Reset Password</a>
         </AntdMenu.Item>
         <AntdMenu.Item>
           <div onClick={this.handleLogOut} >Log Out</div>

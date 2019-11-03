@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button } from 'antd';
 import '../Style/TitleContent.scss';
 const Fade = require('react-reveal/Fade');
 
@@ -16,8 +16,8 @@ class TitleContent extends React.Component {
         <Fade delay={2000} bottom={true} >
           <p className="content-style" >We Use Big Data And Morden Finance Theory To Valid Your Investment And Get Better Return.</p>
         </Fade>
-        <Button className="title-content-continue" variant="contained" color="primary" size="small" href="/login" >
-          Get Start
+        <Button type="primary" size="large" className="content-getstart-btn" >
+          <a href="/login" >Get Start</a>
         </Button>
       </div>
     )
