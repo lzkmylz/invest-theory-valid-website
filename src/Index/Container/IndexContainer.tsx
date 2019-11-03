@@ -5,11 +5,17 @@ import TitleContent from '../Component/TitleContent';
 import ProductContent from '../Component/IndexProductContent';
 import Footer from '../Component/IndexFooter';
 
-class IndexContainer extends React.Component {
+interface Iprops {
+  history: {
+    push(url: String): Function
+  }
+}
+
+class IndexContainer extends React.Component<Iprops> {
   render() {
     return (
       <div className="index-container background-dark">
-        <Header />
+        <Header history={this.props.history} />
         <TitleContent />
         <ProductContent />
         <Footer />

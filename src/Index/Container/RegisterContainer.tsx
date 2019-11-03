@@ -5,17 +5,17 @@ import RegisterForm from '../Component/RegisterForm';
 
 import '../Style/RegisterContainer.scss';
 
-type Iprops = Readonly<{
+interface Iprops {
   history: {
-    push(url: String): void
+    push(url: String): Function
   }
-}>
+}
 
 class RegisterContainer extends React.Component<Iprops> {
   render() {
     return (
       <div className="register-container background-dark" >
-        <Header />
+        <Header history={this.props.history} />
         <div className="register-title" >
           <p>Sign Up</p>
         </div>

@@ -6,11 +6,11 @@ import SignupConfirmForm from '../Component/SignupConfirmForm';
 
 import '../Style/SignupConfirmContainer.scss';
 
-type Iprops = Readonly<{
+interface Iprops {
   history: {
-    push(url: String): void,
+    push(url: String): Function
   }
-}>
+}
 
 @observer
 class SignupConfirmContainer extends React.Component<Iprops> {
@@ -18,7 +18,7 @@ class SignupConfirmContainer extends React.Component<Iprops> {
   render() {
     return (
       <div className="signup-confirm-container background-dark" >
-        <Header />
+        <Header history={this.props.history} />
         <div className="signup-confirm-title" >
           <h1>Confirm Your Email</h1>
           <p>We have send an Email with captcha to your email, please enter it in the input below:</p>

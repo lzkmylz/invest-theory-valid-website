@@ -1,42 +1,61 @@
 import React from 'react';
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
-import { List } from '@material-ui/icons';
 import { observer } from 'mobx-react';
-import { Menu as AntdMenu, Dropdown, Icon } from 'antd';
+import { Menu, Dropdown, Icon, Button } from 'antd';
 import UserStore from '../Store/UserStore';
 import '../Style/IndexHeader.scss';
 
+interface Iprops {
+  history: {
+    push(url: String): Function
+  }
+}
+
 @observer
-class IndexHeader extends React.Component {
-  state = {
-    anchorEl: null,
-  }
+class IndexHeader extends React.Component<Iprops> {
 
-  handleClick = (event: any) => {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
-
-  handleLogOut = () => {
-    UserStore.UserLogOut();
+  handleMenuClick = (e: any) => {
+    switch(e.key) {
+      case "logout":
+        UserStore.UserLogOut();
+        this.props.history.push("/");
+        return;
+      case "signin":
+        this.props.history.push("/login");
+        return;
+      case "signup":
+        this.props.history.push("/register");
+        return;
+      default:
+        console.log(e);
+    }
   }
 
   render() {
     const menu = (
-      <AntdMenu>
-        <AntdMenu.Item>
-          <a href="/" >Dashboard</a>
-        </AntdMenu.Item>
-        <AntdMenu.Item>
-          <a href="/" >Reset Password</a>
-        </AntdMenu.Item>
-        <AntdMenu.Item>
-          <div onClick={this.handleLogOut} >Log Out</div>
-        </AntdMenu.Item>
-      </AntdMenu>
+      <Menu onClick={this.handleMenuClick} >
+        <Menu.Item key="dashboard" >Dashboard</Menu.Item>
+        <Menu.Item key="resetpassword" >Reset Password</Menu.Item>
+        <Menu.Item key="logout" >Log Out</Menu.Item>
+      </Menu>
+    );
+    const mobileUnsignMenu = (
+      <Menu onClick={this.handleMenuClick} >
+        <Menu.Item key="products" >Products</Menu.Item>
+        <Menu.Item key="pricing" >Pricing</Menu.Item>
+        <Menu.Item key="support" >Support</Menu.Item>
+        <Menu.Item key="signin" >Sign In</Menu.Item>
+        <Menu.Item key="logout" >Log Out</Menu.Item>
+      </Menu>
+    );
+    const mobileSignedMenu = (
+      <Menu onClick={this.handleMenuClick} >
+        <Menu.Item key="products" >Products</Menu.Item>
+        <Menu.Item key="pricing" >Pricing</Menu.Item>
+        <Menu.Item key="support" >Support</Menu.Item>
+        <Menu.Item key="dashboard" >Dashboard</Menu.Item>
+        <Menu.Item key="resetpassword" >Reset Password</Menu.Item>
+        <Menu.Item key="logout" >Log Out</Menu.Item>
+      </Menu>
     );
     return (
       <div className="header-container" >
@@ -44,51 +63,11 @@ class IndexHeader extends React.Component {
           <a href="/" >InvestValid</a>
         </h1>
         <div className="header-menu mobile" >
-          <IconButton onClick={this.handleClick} >
-            <List htmlColor="#ffffff" fontSize="large" />
-          </IconButton>
-          {
-            Boolean(UserStore.accessToken) ? (
-              <Menu
-                id="simple-menu"
-                anchorEl={this.state.anchorEl}
-                keepMounted
-                open={Boolean(this.state.anchorEl)}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Products</MenuItem>
-                <MenuItem onClick={this.handleClose}>Pricing</MenuItem>
-                <MenuItem onClick={this.handleClose}>Support</MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <a className="header-menuitem" href="/" >Dashboard</a>
-                </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <a className="header-menuitem" href="/" >Reset Password</a>
-                </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <div className="header-menuitem" onClick={this.handleLogOut} >Log Out</div>
-                </MenuItem>
-              </Menu>
-            ) : (
-              <Menu
-                id="simple-menu"
-                anchorEl={this.state.anchorEl}
-                keepMounted
-                open={Boolean(this.state.anchorEl)}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Products</MenuItem>
-                <MenuItem onClick={this.handleClose}>Pricing</MenuItem>
-                <MenuItem onClick={this.handleClose}>Support</MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <a className="header-menuitem" href="/login" >Sign In</a>
-                </MenuItem>
-                <MenuItem onClick={this.handleClose}>
-                  <a className="header-menuitem" href="/register" >Sign Up</a>
-                </MenuItem>
-              </Menu>
-            )
-          }
+          <Dropdown overlay={Boolean(UserStore.accessToken) ? mobileSignedMenu : mobileUnsignMenu} >
+            <Button style={{ backgroundColor: "#151617" }} >
+              <Icon type="menu" style={{ color: '#fff' }} />
+            </Button>
+          </Dropdown>
         </div>
         <ul className="header-nav-container desktop" >
           <li className="header-nav-item" ><p>Products</p></li>
