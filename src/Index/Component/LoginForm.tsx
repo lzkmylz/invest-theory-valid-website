@@ -58,6 +58,10 @@ class LoginForm extends React.Component<Iprops> {
                 if(result[i].getName() === "email_verified") userAttributes.emailVerified = Boolean(result[i].getValue());
               }
               UserStore.setUserAttributes(userAttributes);
+              if(!values.remember) {
+                console.log('clear cache')
+                localStorage.clear();
+              }
               this.props.history.push("/");
             });
           },
@@ -67,7 +71,6 @@ class LoginForm extends React.Component<Iprops> {
             }
           }
         });
-        
       }
     });
   };
