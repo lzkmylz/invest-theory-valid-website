@@ -13,15 +13,35 @@ interface Iprops extends FormComponentProps {
 class ResetPasswordForm extends React.Component<Iprops> {
   state = {
     confirmDirty: false,
+    newPWInvalid: undefined,
+    limitExceed: undefined,
   }
 
   handleSubmit = (e: any) => {
+    e.preventDefault();
     this.props.form.validateFieldsAndScroll((err: any, values: any) => {
       if(err) {
         console.log(err);
         return;
       }
-
+      if(UserStore.cognitoUser != null) {
+        UserStore.cognitoUser.changePassword(
+          values.oldpassword,
+          values.password,
+          (err: any, result) => {
+            if (err) {
+              if(err.code === "InvalidPasswordException") {
+                this.setState({ newPWInvalid: "error" })
+              }
+              if(err.code === "LimitExceededException") {
+                this.setState({ limitExceed: 'error' })
+              }
+              console.log(err)
+            }
+            console.log('call result: ' + result);
+          }
+        );
+      }
     });
   }
 
@@ -37,6 +57,7 @@ class ResetPasswordForm extends React.Component<Iprops> {
     } else {
       callback();
     }
+    if(this.state.newPWInvalid) this.setState({ newPWInvalid: undefined });
   };
 
   validateToNextPassword = (rule:any, value:String, callback:Function) => {
@@ -44,15 +65,35 @@ class ResetPasswordForm extends React.Component<Iprops> {
     if (value && this.state.confirmDirty) {
       form.validateFields(['confirm'], { force: true });
     }
+    if(this.state.newPWInvalid) this.setState({ newPWInvalid: undefined });
     callback();
   };
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { newPWInvalid, limitExceed } = this.state;
+
     return (
       <div className="resetpw-form-container" >
         <Form onSubmit={this.handleSubmit} className="resetpw-form" >
+        <Form.Item
+          >
+            {getFieldDecorator('oldpassword', {
+            rules: [
+              {
+                required: true,
+                message: 'Please input your old password!',
+              }
+            ],
+          })(
+              <Input.Password
+                placeholder="Old Password"
+              />,
+            )}
+          </Form.Item>
           <Form.Item
+            validateStatus={newPWInvalid}
+            help={newPWInvalid ? "Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
           >
             {getFieldDecorator('password', {
             rules: [
@@ -66,12 +107,12 @@ class ResetPasswordForm extends React.Component<Iprops> {
             ],
           })(
               <Input.Password
-                className="resetpw-pw1"
                 placeholder="New Password"
               />,
             )}
           </Form.Item>
           <Form.Item
+            validateStatus={newPWInvalid}
           >
             {getFieldDecorator('confirm', {
             rules: [
@@ -85,13 +126,15 @@ class ResetPasswordForm extends React.Component<Iprops> {
             ],
           })(
               <Input.Password
-                className="resetpw-pw2"
                 placeholder="Confirm New Password"
               />,
             )}
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
+          <Form.Item
+            validateStatus={limitExceed}
+            help={limitExceed ? "Attempt limit exceeded, please try after some time" : ""}
+          >
+            <Button type="primary" htmlType="submit" className="resetps-form-btn" >
               Reset Password
             </Button>
           </Form.Item>
