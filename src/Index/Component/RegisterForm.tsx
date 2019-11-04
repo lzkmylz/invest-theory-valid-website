@@ -21,7 +21,6 @@ interface Iprops extends FormComponentProps {
 class RegisterForm extends React.Component<Iprops, any> {
   state = {
     confirmDirty: false,
-    autoCompleteResult: [],
     passwordInvalidate: undefined,
     emailInvalidate: undefined
   };

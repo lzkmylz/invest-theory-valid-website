@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
+import ResetPasswordForm from '../Component/ResetPasswordForm';
+import '../Style/ResetPasswordContainer.scss';
 
 interface Iprops {
   history: {
@@ -14,7 +16,13 @@ class ResetPasswordContainer extends React.Component<Iprops> {
     return (
       <div className="resetpw-container" >
         <Header history={this.props.history} />
-        <p>content</p>
+        <div className="resetpw-main" >
+          <div className="resetpw-title" >
+            <h1>Reset Password</h1>
+            <p>Please input your new password:</p>
+          </div>
+          <ResetPasswordForm history={this.props.history} />
+        </div>
         <Footer />
       </div>
     )
