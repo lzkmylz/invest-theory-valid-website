@@ -15,6 +15,7 @@ class ResetPasswordForm extends React.Component<Iprops> {
     confirmDirty: false,
     newPWInvalid: undefined,
     limitExceed: undefined,
+    notAuthorized: undefined,
   }
 
   handleSubmit = (e: any) => {
@@ -35,6 +36,9 @@ class ResetPasswordForm extends React.Component<Iprops> {
               }
               if(err.code === "LimitExceededException") {
                 this.setState({ limitExceed: 'error' })
+              }
+              if(err.code === "NotAuthorizedException") {
+                this.setState({ notAuthorized: 'error' });
               }
               console.log(err)
             }
@@ -71,12 +75,14 @@ class ResetPasswordForm extends React.Component<Iprops> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { newPWInvalid, limitExceed } = this.state;
+    const { newPWInvalid, limitExceed, notAuthorized } = this.state;
 
     return (
       <div className="resetpw-form-container" >
         <Form onSubmit={this.handleSubmit} className="resetpw-form" >
         <Form.Item
+          validateStatus={notAuthorized}
+          help={notAuthorized ? "Incorrect username or password" : ""}
           >
             {getFieldDecorator('oldpassword', {
             rules: [
