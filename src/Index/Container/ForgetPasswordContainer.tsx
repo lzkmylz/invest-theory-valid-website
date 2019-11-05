@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
+import ForgetPasswordForm from '../Component/ForgetPasswordForm';
 import '../Style/ForgetPasswordContainer.scss';
 
 interface Iprops {
@@ -18,6 +19,7 @@ class ForgetPasswordContainer extends React.Component<Iprops> {
           <div className="forgetpw-title" >
             <h1>Forget Password</h1>
           </div>
+          <ForgetPasswordForm history={this.props.history} />
         </div>
         <Footer />
       </div>
