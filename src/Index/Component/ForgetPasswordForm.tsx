@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { observer } from 'mobx-react';
+import _ from 'lodash';
 import UserStore from '../Store/UserStore';
 import '../Style/ForgetPasswordForm.scss';
 
@@ -17,6 +18,9 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     confirmDirty: false,
     invalidCaptcha: undefined,
     newPWInvalid: undefined,
+    getCaptchaCoding: false,
+    captchaCodingCount: -1,
+    timerRecord: 0,
   }
 
   onCaptchaChange = () => {
@@ -44,9 +48,30 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     callback();
   };
 
+  getCaptcha = _.throttle(() => {
+    this.setState({ getCaptchaCoding: true, captchaCodingCount: 30 });
+    var record = setInterval(() => {
+      if(this.state.captchaCodingCount >= 0) {
+        this.setState({ captchaCodingCount: this.state.captchaCodingCount - 1 });
+      } else {
+        if(this.state.timerRecord !== 0) {
+          clearInterval(this.state.timerRecord);
+          this.setState({ getCaptchaCoding: false });
+        }
+      }
+    }, 1000);
+    this.setState({ timerRecord: record });
+
+  }, 30000)
+
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { invalidCaptcha, newPWInvalid } = this.state;
+    const {
+      invalidCaptcha,
+      newPWInvalid,
+      getCaptchaCoding,
+      captchaCodingCount,
+    } = this.state;
 
     return (
       <div className="forgetpw-form-container" >
@@ -66,9 +91,16 @@ class ForgetPasswordForm extends React.Component<Iprops> {
               />,
             )}
           </Form.Item>
-          <Button className="forgetpw-get-captcha" type="primary" >
-              Get Captcha
-            </Button>
+          <Button
+            className="forgetpw-get-captcha"
+            type="primary"
+            disabled={getCaptchaCoding}
+            onClick={this.getCaptcha}
+          >
+            {
+              captchaCodingCount <= 0 ? "Get Captcha" : `Waiting (${captchaCodingCount})s`
+            }
+          </Button>
           <Form.Item
             validateStatus={newPWInvalid}
             help={newPWInvalid ? "Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
