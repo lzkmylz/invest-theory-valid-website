@@ -3,6 +3,7 @@ import { Form, Input, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { observer } from 'mobx-react';
 import UserStore from '../Store/UserStore';
+import '../Style/ForgetPasswordForm.scss';
 
 interface Iprops extends FormComponentProps {
   history: {
@@ -49,20 +50,25 @@ class ForgetPasswordForm extends React.Component<Iprops> {
 
     return (
       <div className="forgetpw-form-container" >
-        <Form className="forgetpw-form" >
+        <Form className="forgetpw-form" autoComplete="off" >
           <Form.Item
-            className="gorgetpw-captcha-input"
+            className="forgetpw-captcha-input"
             validateStatus={invalidCaptcha}
           >
             {getFieldDecorator('captcha', {
               rules: [{ required: true, message: 'Please input your captcha!' }],
             })(
               <Input
+                name="hidden"
+                autoComplete="false"
                 onChange={this.onCaptchaChange}
                 placeholder="captcha"
               />,
             )}
           </Form.Item>
+          <Button className="forgetpw-get-captcha" type="primary" >
+              Get Captcha
+            </Button>
           <Form.Item
             validateStatus={newPWInvalid}
             help={newPWInvalid ? "Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
@@ -103,7 +109,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
             )}
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" className="forgetpw-btn" >
               Change New Password
             </Button>
           </Form.Item>
