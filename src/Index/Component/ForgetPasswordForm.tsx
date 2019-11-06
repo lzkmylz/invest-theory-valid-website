@@ -3,6 +3,7 @@ import { Form, Input, Button } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import { observer } from 'mobx-react';
 import _ from 'lodash';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import UserStore from '../Store/UserStore';
 import '../Style/ForgetPasswordForm.scss';
 
@@ -21,6 +22,8 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     getCaptchaCoding: false,
     captchaCodingCount: -1,
     timerRecord: 0,
+    captchaSendState: undefined,
+    submitError: undefined,
   }
 
   onCaptchaChange = () => {
@@ -48,6 +51,25 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     callback();
   };
 
+  handleSubmit = (e: any) => {
+    e.preventDefault();
+    this.props.form.validateFields((err: any, values: any) => {
+      if(err) return;
+      var code = values.captcha;
+      var newPassword = values.password;
+      if(UserStore.cognitoUser != null) {
+        UserStore.cognitoUser.confirmPassword(code, newPassword, {
+          onSuccess: () => {
+            this.props.history.push('/');
+          },
+          onFailure: err => {
+            this.setState({ submitError: 'error' });
+          }
+        });
+      }
+    });
+  }
+
   getCaptcha = _.throttle(() => {
     this.setState({ getCaptchaCoding: true, captchaCodingCount: 30 });
     var record = setInterval(() => {
@@ -62,6 +84,20 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     }, 1000);
     this.setState({ timerRecord: record });
 
+    // get captcha
+    var cognitoUser = new CognitoUser({
+      Username: this.props.form.getFieldValue('email'),
+      Pool: UserStore.userPool
+    });
+    UserStore.setCognitoUser(cognitoUser);
+    cognitoUser.forgotPassword({
+      onSuccess: data => {
+        this.setState({ captchaSendState: 'success' });
+      },
+      onFailure: err => {
+        this.setState({ captchaSendState: 'error' });
+      }
+    });
   }, 30000)
 
   render() {
@@ -71,11 +107,36 @@ class ForgetPasswordForm extends React.Component<Iprops> {
       newPWInvalid,
       getCaptchaCoding,
       captchaCodingCount,
+      captchaSendState,
+      submitError,
     } = this.state;
+
+    var captchaSendHelp = '';
+    if(captchaSendState === "success") {
+      captchaSendHelp = 'Captcha has send to your email.';
+    } else if (captchaSendState === "error") {
+      captchaSendHelp = "Captcha send failed, please check your email.";
+    }
 
     return (
       <div className="forgetpw-form-container" >
         <Form className="forgetpw-form" autoComplete="off" >
+          <Form.Item
+            className="forgetpw-email-input"
+            validateStatus={captchaSendState}
+            help={captchaSendHelp}
+          >
+            {getFieldDecorator('email', {
+              rules: [{ required: true, message: 'Please input your email!' }],
+            })(
+              <Input
+                name="hidden"
+                autoComplete="false"
+                onChange={this.onCaptchaChange}
+                placeholder="Email"
+              />,
+            )}
+          </Form.Item>
           <Form.Item
             className="forgetpw-captcha-input"
             validateStatus={invalidCaptcha}
@@ -140,7 +201,10 @@ class ForgetPasswordForm extends React.Component<Iprops> {
               />,
             )}
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+            validateStatus={submitError}
+            help={submitError ? "Captcha Incorrect Or Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
+          >
             <Button type="primary" htmlType="submit" className="forgetpw-btn" >
               Change New Password
             </Button>
