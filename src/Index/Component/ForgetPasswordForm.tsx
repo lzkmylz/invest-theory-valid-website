@@ -26,6 +26,12 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     submitError: undefined,
   }
 
+  componentWillUnmount = () => {
+    if(this.state.timerRecord) {
+      clearInterval(this.state.timerRecord);
+    }
+  }
+
   onCaptchaChange = () => {
     if(this.state.invalidCaptcha) {
       this.setState({ invalidCaptcha: undefined });
@@ -120,7 +126,11 @@ class ForgetPasswordForm extends React.Component<Iprops> {
 
     return (
       <div className="forgetpw-form-container" >
-        <Form className="forgetpw-form" autoComplete="off" >
+        <Form
+          className="forgetpw-form"
+          autoComplete="off"
+          onSubmit={this.handleSubmit}
+        >
           <Form.Item
             className="forgetpw-email-input"
             validateStatus={captchaSendState}
@@ -178,6 +188,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
             ],
           })(
               <Input.Password
+                autoComplete="off"
                 placeholder="New Password"
               />,
             )}

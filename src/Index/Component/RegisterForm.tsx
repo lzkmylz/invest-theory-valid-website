@@ -22,13 +22,15 @@ class RegisterForm extends React.Component<Iprops, any> {
   state = {
     confirmDirty: false,
     passwordInvalidate: undefined,
-    emailInvalidate: undefined
+    emailInvalidate: undefined,
+    loading: false,
   };
 
   handleSubmit = (e:any) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err:any, values:any) => {
       if (!err) {
+        this.setState({ loading: true });
         // handle cognito register here
         var attributeList = [];
         var dataEmail = {
@@ -94,7 +96,11 @@ class RegisterForm extends React.Component<Iprops, any> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { passwordInvalidate, emailInvalidate } = this.state;
+    const {
+      passwordInvalidate,
+      emailInvalidate,
+      loading,
+    } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -189,7 +195,11 @@ class RegisterForm extends React.Component<Iprops, any> {
           })(<Input size="small" />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+          >
             Sign Up
           </Button>
         </Form.Item>

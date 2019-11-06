@@ -19,12 +19,14 @@ interface Iprops extends FormComponentProps {
 class LoginForm extends React.Component<Iprops> {
   state = {
     notAuthorized: undefined,
+    loading: false,
   }
 
   handleSubmit = (e:any) => {
     e.preventDefault();
     this.props.form.validateFields((err:any, values:any) => {
       if (!err) {
+        this.setState({ loading: true });
         var authenticationData = {
           Username: values.username,
           Password: values.password
@@ -80,7 +82,10 @@ class LoginForm extends React.Component<Iprops> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { notAuthorized } = this.state;
+    const {
+      notAuthorized,
+      loading,
+    } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item
@@ -122,7 +127,13 @@ class LoginForm extends React.Component<Iprops> {
           <a className="login-form-forgot" href="/forget-password">
             Forgot password
           </a>
-          <Button type="primary" htmlType="submit" className="login-form-button" size="small" >
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+            size="small"
+            loading={loading}
+          >
             Sign In
           </Button>
           Or <a href="/register" className="login-registernow" >Sign Up now!</a>

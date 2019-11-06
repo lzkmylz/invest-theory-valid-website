@@ -12,12 +12,14 @@ interface Iprops extends FormComponentProps {
 class SignupConfirmForm extends React.Component<Iprops> {
   state = {
     captchaError: undefined,
+    loading: false,
   }
 
   handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err: any, values: any) => {
       if(UserStore.cognitoUser == null) return;
+      this.setState({ loading: true });
       UserStore.cognitoUser.confirmRegistration(values.captcha, true, (err, result) => {
         if(!err) {
           this.props.history.push('/')
@@ -36,13 +38,17 @@ class SignupConfirmForm extends React.Component<Iprops> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const {
+      captchaError,
+      loading,
+    } = this.state;
     return (
       <div className="signup-confirm-content" >
         <Form onSubmit={this.handleSubmit} className="signup-confirm-form" >
           <Form.Item
             className="signup-confirm-captha-input"
-            validateStatus={this.state.captchaError}
-            help={this.state.captchaError ? "Please enter correct captcha!" : ""}
+            validateStatus={captchaError}
+            help={captchaError ? "Please enter correct captcha!" : ""}
           >
             {getFieldDecorator('captcha', {
               rules: [{ required: true, message: 'Please input your captcha!' }],
@@ -54,7 +60,11 @@ class SignupConfirmForm extends React.Component<Iprops> {
             )}
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
               Confirm
             </Button>
           </Form.Item>
