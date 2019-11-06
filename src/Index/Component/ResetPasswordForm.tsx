@@ -16,6 +16,7 @@ class ResetPasswordForm extends React.Component<Iprops> {
     newPWInvalid: undefined,
     limitExceed: undefined,
     notAuthorized: undefined,
+    loading: false,
   }
 
   handleSubmit = (e: any) => {
@@ -25,6 +26,7 @@ class ResetPasswordForm extends React.Component<Iprops> {
         console.log(err);
         return;
       }
+      this.setState({ loading: true });
       if(UserStore.cognitoUser != null) {
         UserStore.cognitoUser.changePassword(
           values.oldpassword,
@@ -75,7 +77,12 @@ class ResetPasswordForm extends React.Component<Iprops> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { newPWInvalid, limitExceed, notAuthorized } = this.state;
+    const {
+      newPWInvalid,
+      limitExceed,
+      notAuthorized,
+      loading,
+    } = this.state;
 
     return (
       <div className="resetpw-form-container" >
@@ -140,7 +147,12 @@ class ResetPasswordForm extends React.Component<Iprops> {
             validateStatus={limitExceed}
             help={limitExceed ? "Attempt limit exceeded, please try after some time" : ""}
           >
-            <Button type="primary" htmlType="submit" className="resetps-form-btn" >
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="resetps-form-btn"
+              loading={loading}
+            >
               Reset Password
             </Button>
           </Form.Item>

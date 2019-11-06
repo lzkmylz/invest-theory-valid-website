@@ -23,7 +23,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     captchaCodingCount: -1,
     timerRecord: 0,
     captchaSendState: undefined,
-    submitError: undefined,
+    loading: false,
   }
 
   componentWillUnmount = () => {
@@ -61,6 +61,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
     e.preventDefault();
     this.props.form.validateFields((err: any, values: any) => {
       if(err) return;
+      this.setState({ loading: true });
       var code = values.captcha;
       var newPassword = values.password;
       if(UserStore.cognitoUser != null) {
@@ -68,8 +69,12 @@ class ForgetPasswordForm extends React.Component<Iprops> {
           onSuccess: () => {
             this.props.history.push('/');
           },
-          onFailure: err => {
-            this.setState({ submitError: 'error' });
+          onFailure: (err:any) => {
+            if(err.code === "CodeMismatchException") {
+              this.setState({ invalidCaptcha: 'error' });
+            } else if(err.code === "InvalidPasswordException") {
+              this.setState({ newPWInvalid: 'error' });
+            }
           }
         });
       }
@@ -114,7 +119,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
       getCaptchaCoding,
       captchaCodingCount,
       captchaSendState,
-      submitError,
+      loading,
     } = this.state;
 
     var captchaSendHelp = '';
@@ -150,6 +155,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
           <Form.Item
             className="forgetpw-captcha-input"
             validateStatus={invalidCaptcha}
+            help={invalidCaptcha ? "Invalid verification code provided, please try again." : ""}
           >
             {getFieldDecorator('captcha', {
               rules: [{ required: true, message: 'Please input your captcha!' }],
@@ -169,7 +175,7 @@ class ForgetPasswordForm extends React.Component<Iprops> {
             onClick={this.getCaptcha}
           >
             {
-              captchaCodingCount <= 0 ? "Get Captcha" : `Waiting (${captchaCodingCount})s`
+              captchaCodingCount < 0 ? "Get Captcha" : `Waiting (${captchaCodingCount})s`
             }
           </Button>
           <Form.Item
@@ -212,11 +218,13 @@ class ForgetPasswordForm extends React.Component<Iprops> {
               />,
             )}
           </Form.Item>
-          <Form.Item
-            validateStatus={submitError}
-            help={submitError ? "Captcha Incorrect Or Passowrd should more than 8 words, contain number, lower and upper case letters" : ""}
-          >
-            <Button type="primary" htmlType="submit" className="forgetpw-btn" >
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="forgetpw-btn"
+              loading={loading}
+            >
               Change New Password
             </Button>
           </Form.Item>

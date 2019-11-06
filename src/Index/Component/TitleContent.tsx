@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button } from 'antd';
+import { observer } from 'mobx-react';
+import UserStore from '../Store/UserStore';
 import '../Style/TitleContent.scss';
 const Fade = require('react-reveal/Fade');
 
+@observer
 class TitleContent extends React.Component {
   render() {
     return (
@@ -17,7 +20,7 @@ class TitleContent extends React.Component {
           <p className="content-style" >We Use Big Data And Morden Finance Theory To Valid Your Investment And Get Better Return.</p>
         </Fade>
         <Button type="primary" size="large" className="content-getstart-btn" >
-          <a href="/login" >Get Start</a>
+          <a href={Boolean(UserStore.accessToken) ? "/dashboard" : "/login"} >Get Start</a>
         </Button>
       </div>
     )
