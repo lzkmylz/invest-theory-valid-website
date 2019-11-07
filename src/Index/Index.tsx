@@ -7,6 +7,7 @@ import RegisterContainer from './Container/RegisterContainer';
 import SignupConfirmContainer from './Container/SignupConfirmContainer';
 import ResetPasswordContainer from './Container/ResetPasswordContainer';
 import ForgetPasswordContainer from './Container/ForgetPasswordContainer';
+import ForgetPasswordFeedBack from './Container/ForgetPasswordFeedBack';
 import UserStore from './Store/UserStore';
 
 @observer
@@ -21,6 +22,7 @@ class Index extends React.Component {
         <Route path="/signup-confirm" component={SignupConfirmContainer} />
         <Route path="/reset-password" component={ResetPasswordContainer} />
         <Route path="/forget-password" component={ForgetPasswordContainer} />
+        <Route path="/reset-success" component={ForgetPasswordFeedBack} />
       </Switch>
     );
   }
