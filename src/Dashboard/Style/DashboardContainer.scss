@@ -7,3 +7,26 @@
 .dashboard-main {
   flex: 1 0 auto;
 }
+
+.dashboard-layout {
+  height: 100%;
+
+  .ant-menu {
+    background-color: #151617;
+    color: #fff;
+    border: none;
+  }
+
+  .ant-menu-item-selected {
+    background-color: #515557 !important;
+    color: #fa6400;
+  }
+
+  .ant-menu-item:hover {
+    color: #fa6400;
+  }
+
+  .ant-layout-content {
+    background-color: #262626;
+  }
+}
