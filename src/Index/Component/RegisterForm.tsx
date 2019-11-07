@@ -61,7 +61,7 @@ class RegisterForm extends React.Component<Iprops, any> {
                   this.setState({
                     emailInvalidate: "error",
                   });
-                console.log(err)
+                this.setState({ loading: false });
               }
             }
           });

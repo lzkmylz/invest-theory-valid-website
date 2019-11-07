@@ -68,7 +68,7 @@ class LoginForm extends React.Component<Iprops> {
           },
           onFailure: (err) => {
             if(err.code === "NotAuthorizedException") {
-              this.setState({ notAuthorized: "error" });
+              this.setState({ notAuthorized: "error", loading: false });
             }
           }
         });
