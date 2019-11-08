@@ -31,6 +31,9 @@ class IndexHeader extends React.Component<Iprops> {
       case "dashboard":
         this.props.history.push("/dashboard");
         return;
+      case "donate":
+        this.props.history.push("/donate");
+        return;
       default:
         console.log(e);
     }
@@ -47,7 +50,7 @@ class IndexHeader extends React.Component<Iprops> {
     const mobileUnsignMenu = (
       <Menu onClick={this.handleMenuClick} >
         <Menu.Item key="products" >Products</Menu.Item>
-        <Menu.Item key="pricing" >Pricing</Menu.Item>
+        <Menu.Item key="donate" >Donate</Menu.Item>
         <Menu.Item key="support" >Support</Menu.Item>
         <Menu.Item key="signin" >Sign In</Menu.Item>
         <Menu.Item key="logout" >Log Out</Menu.Item>
@@ -56,7 +59,7 @@ class IndexHeader extends React.Component<Iprops> {
     const mobileSignedMenu = (
       <Menu onClick={this.handleMenuClick} >
         <Menu.Item key="products" >Products</Menu.Item>
-        <Menu.Item key="pricing" >Pricing</Menu.Item>
+        <Menu.Item key="donate" >Donate</Menu.Item>
         <Menu.Item key="support" >Support</Menu.Item>
         <Menu.Item key="dashboard" >Dashboard</Menu.Item>
         <Menu.Item key="resetpassword" >Reset Password</Menu.Item>
@@ -77,7 +80,7 @@ class IndexHeader extends React.Component<Iprops> {
         </div>
         <ul className="header-nav-container desktop" >
           <li className="header-nav-item" ><p>Products</p></li>
-          <li className="header-nav-item" ><p>Pricing</p></li>
+          <li className="header-nav-item" ><p><a href="/donate" >Donate</a></p></li>
           <li className="header-nav-item" ><p>Support</p></li>
         </ul>
         <div className="header-login-container desktop" >
