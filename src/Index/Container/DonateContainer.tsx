@@ -1,11 +1,11 @@
 import React from 'react';
 import $ from 'jquery';
-import Clipboard from 'clipboard';
+import Clipboard from 'react-clipboard.js';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import '../Style/DonateContainer.scss';
-import AliPayQR from '../images/AliPayQR.png';
-import WeChanSQ from '../images/WeChanSQ.png';
+import AliPayQR from '../images/AliPayQR.jpeg';
+import WeChanSQ from '../images/WeChanSQ.jpeg';
 import BTCQR from '../images/BTCQR.png';
 
 interface Iprops {
@@ -15,6 +15,9 @@ interface Iprops {
 }
 
 class DonateContainer extends React.Component<Iprops> {
+  getText() {
+    return 'bc1qfkyqc6awydsqv7jtn0429mcdd296ftfejuxgxp';
+  }
   
   componentDidMount() {
     var MainBox	=	$('#MainBox');
@@ -35,7 +38,6 @@ class DonateContainer extends React.Component<Iprops> {
       var thisID	=	$(this).attr('id');
       if (thisID === 'BTC') {
         showQR(BTCQR);
-        new Clipboard('#BTCBn');
       } else if (thisID === 'AliPay') {
         showQR(AliPayQR);
       } else if (thisID === 'WeChat') {
@@ -64,15 +66,14 @@ class DonateContainer extends React.Component<Iprops> {
           <div className="donate-plugin-container" >
             <div id="DonateText" className="tr3">Sponsor</div>
             <ul id="donateBox" className="list pos-f tr3">
-              <li id="PayPal"><a href="https://www.paypal.me/KaiyuanXie" target="_blank" rel="noopener noreferrer" >PayPal</a></li>
-              <li id="BTC" data-footnote="Copy addres and show QRCod"><button id="BTCBn"  data-clipboard-target="#btc-key">Bitcoin</button></li>
+              <li id="PayPal"><a href="https://www.paypal.me/lzkmylz" target="_blank" rel="noopener noreferrer" >PayPal</a></li>
+              <li id="BTC" data-footnote="Copy addres and show QRCod"><Clipboard option-text={this.getText} >Bitcoin</Clipboard></li>
               <li id="AliPay">AliPay</li>
               <li id="WeChat">WeChat</li>
             </ul>
             <div id="QRBox" className="pos-f left-100">
               <div id="MainBox"></div>
             </div>
-	          <input id="btc-key" type="text" value="14JkMR68n4PBASB3TgvpjtaPTbfffSwFbW" readOnly ></input>
           </div>
         </div>
         <Footer />
