@@ -8,26 +8,38 @@
   flex: 1 0 auto;
 }
 
-.dashboard-layout {
-  height: 100%;
+.dashboard-user-profile {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  margin: 0 40px;
+  border: 1px solid #fff;
+  align-items: center;
 
-  .ant-menu {
-    background-color: #151617;
-    color: #fff;
-    border: none;
-  }
+  @media screen and (min-width: 426px) {
+    .dashboard-user-avatar {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
 
-  .ant-menu-item-selected {
-    background-color: #515557 !important;
-    color: #fa6400;
-  }
+      .dashboard-user-avatar-setter {
+        margin-top: 10px;
+      }
+    }
+  
+    .user-info {
+      flex: 2;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
 
-  .ant-menu-item:hover {
-    color: #fa6400;
+      p {
+        color: #fff;
+      }
+    }
   }
-
-  .ant-layout-content {
-    background-color: #262626;
-    padding: 5px;
-  }
+  
 }
