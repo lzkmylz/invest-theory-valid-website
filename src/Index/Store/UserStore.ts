@@ -29,15 +29,19 @@ class UserStore {
   @action setCognitoUser = (cognitoUser: CognitoUser | null) => {
     this.cognitoUser = cognitoUser;
   }
+
   @action setAccessToken = (accessToken: String) => {
     this.accessToken = accessToken;
   }
+
   @action getUserPool = () => {
     return this.userPool;
   }
+
   @action setUserAttributes = (attributes: UserAttributes) => {
     this.userAttributes = attributes;
   }
+
   @action initUserFromLocalStorage = () => {
     var cognitoUser = this.userPool.getCurrentUser();
     if(cognitoUser != null) {
@@ -71,6 +75,7 @@ class UserStore {
       });
     }
   }
+
   @action UserLogOut = () => {
     if(this.cognitoUser != null) {
       this.cognitoUser.signOut();
@@ -81,6 +86,24 @@ class UserStore {
         nickname: '',
         sub: '',
         emailVerified: false
+      });
+    }
+  }
+
+  @action SetAvatar = (avatarUrl: string) => {
+    if(this.cognitoUser != null) {
+      var attributeList = [];
+      var attribute = {
+        Name: 'custom:s3_avatar_url',
+        Value: avatarUrl,
+      };
+      attributeList.push(attribute);
+      this.cognitoUser.updateAttributes(attributeList, function(err: any, result: any) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log('call result: ' + result);
       });
     }
   }
