@@ -34,6 +34,9 @@ class IndexHeader extends React.Component<Iprops> {
       case "donate":
         this.props.history.push("/donate");
         return;
+      case "products":
+        this.props.history.push("/products");
+        return;
       default:
         console.log(e);
     }
@@ -79,7 +82,7 @@ class IndexHeader extends React.Component<Iprops> {
           </Dropdown>
         </div>
         <ul className="header-nav-container desktop" >
-          <li className="header-nav-item" ><p>Products</p></li>
+          <li className="header-nav-item" ><p><a href="/products" >Products</a></p></li>
           <li className="header-nav-item" ><p><a href="/donate" >Donate</a></p></li>
           <li className="header-nav-item" ><p>Support</p></li>
         </ul>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Index from './Index/Index';
 import DashboardIndex from './Dashboard/Index';
+import Products from './Products/Index';
 
 class Router extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class Router extends React.Component {
           <Route path="/reset-success" component={Index} />
           <Route path="/donate" component={Index} />
           <Route path="/dashboard" component={DashboardIndex} />
+          <Route path="/products" component={Products} />
         </Switch>
       </BrowserRouter>
     );
