@@ -1,5 +1,12 @@
 import React from 'react';
-import { Avatar, Button, Modal, Upload, Icon } from 'antd';
+import {
+  Avatar,
+  Button,
+  Modal,
+  Upload,
+  Icon,
+} from 'antd';
+import { UploadChangeParam, RcFile } from 'antd/lib/upload'
 import { observer } from 'mobx-react';
 import Header from '../../Index/Component/IndexHeader';
 import Footer from '../../Index/Component/IndexFooter';
@@ -28,7 +35,14 @@ class DashboardContainer extends React.Component<Iprops> {
     confirmLoading: false,
     previewVisible: false,
     previewImage: '',
-    fileList: []
+    fileList: [],
+    file: null,
+  }
+
+  componentWillUnmount = () => {
+    if(!Boolean(UserStore.accessToken)) {
+      this.props.history.push("/");
+    }
   }
 
   handleCancelPreview = () => {
@@ -46,7 +60,7 @@ class DashboardContainer extends React.Component<Iprops> {
     });
   };
 
-  handleChange = (fileList: any) => this.setState({ fileList });
+  handleChange = ({ fileList }: UploadChangeParam) => this.setState({ fileList });
 
   showModal = () => {
     this.setState({
@@ -55,9 +69,14 @@ class DashboardContainer extends React.Component<Iprops> {
   };
 
   handleOk = () => {
+    if(!this.state.file) {
+      return;
+    }
+
     this.setState({
       confirmLoading: true,
     });
+
     setTimeout(() => {
       this.setState({
         visible: false,
@@ -67,11 +86,19 @@ class DashboardContainer extends React.Component<Iprops> {
   };
 
   handleCancel = () => {
-    console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
   };
+
+  handlePreviewCancel = () => {
+    this.setState({ previewVisible: false });
+  }
+
+  handleUploadAvatar = (file: RcFile, files: RcFile[]) => {
+    this.setState({ file: file });
+    return false;
+  }
 
   render() {
     const {
@@ -100,17 +127,18 @@ class DashboardContainer extends React.Component<Iprops> {
         >
           <div className="avatar-modal-main" >
             <Upload
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              accept=".jpg,.png"
               listType="picture-card"
               fileList={fileList}
               onPreview={this.handlePreview}
               onChange={this.handleChange}
+              beforeUpload={this.handleUploadAvatar}
             >
               {fileList.length >= 1 ? null : uploadButton}
             </Upload>
           </div>
         </Modal>
-        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+        <Modal visible={previewVisible} footer={null} onCancel={this.handlePreviewCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
         <Header history={this.props.history} />
