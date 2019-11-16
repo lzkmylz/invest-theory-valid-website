@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
+import { RcFile } from 'antd/lib/upload';
+import axios from 'axios';
 import { config } from '../Constants';
 
 // private variable types
@@ -106,6 +108,14 @@ class UserStore {
         console.log('call result: ' + result);
       });
     }
+  }
+
+  @action UpdateAvatar = (file: RcFile) => {
+    let url = '';
+
+    return axios.post(url, file, {
+      
+    });
   }
 }
 

@@ -5,6 +5,7 @@ import {
   Modal,
   Upload,
   Icon,
+  message,
 } from 'antd';
 import { UploadChangeParam, RcFile } from 'antd/lib/upload'
 import { observer } from 'mobx-react';
@@ -37,6 +38,7 @@ class DashboardContainer extends React.Component<Iprops> {
     previewImage: '',
     fileList: [],
     file: null,
+    uploadError: false,
   }
 
   componentWillUnmount = () => {
@@ -69,20 +71,19 @@ class DashboardContainer extends React.Component<Iprops> {
   };
 
   handleOk = () => {
-    if(!this.state.file) {
+    const file: RcFile | null = this.state.file;
+    if(file == null) {
+      message.error("Please upload new avatar or cancel");
       return;
     }
-
     this.setState({
       confirmLoading: true,
     });
 
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 1000);
+    UserStore.UpdateAvatar(file).then(data => {
+      console.log(data);
+      this.setState({ confirmLoading: false, visible: false });
+    });
   };
 
   handleCancel = () => {
@@ -141,6 +142,7 @@ class DashboardContainer extends React.Component<Iprops> {
         <Modal visible={previewVisible} footer={null} onCancel={this.handlePreviewCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
         </Modal>
+
         <Header history={this.props.history} />
         <div className="dashboard-main" >
           <div className="dashboard-user-profile" >
