@@ -51,7 +51,8 @@ class LoginForm extends React.Component<Iprops> {
                 email: '',
                 nickname: '',
                 sub: '',
-                emailVerified: false
+                emailVerified: false,
+                s3_avatar_url: ''
               };
               for (let i = 0; i < result.length; i++) {
                 if(result[i].getName() === "email") userAttributes.email = result[i].getValue();

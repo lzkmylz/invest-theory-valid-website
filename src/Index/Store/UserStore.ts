@@ -5,10 +5,11 @@ import { config, urlBase } from '../Constants';
 
 // private variable types
 export type UserAttributes = {
-  email: String,
-  nickname: String,
-  sub: String,
-  emailVerified: Boolean
+  email: string,
+  nickname: string,
+  sub: string,
+  emailVerified: Boolean,
+  s3_avatar_url: string
 }
 
 class UserStore {
@@ -23,7 +24,8 @@ class UserStore {
     email: '',
     nickname: '',
     sub: '',
-    emailVerified: false
+    emailVerified: false,
+    s3_avatar_url: ''
   };
 
   // actions
@@ -63,13 +65,15 @@ class UserStore {
             email: '',
             nickname: '',
             sub: '',
-            emailVerified: false
+            emailVerified: false,
+            s3_avatar_url: ''
           };
           for (let i = 0; i < result.length; i++) {
             if(result[i].getName() === "email") userAttributes.email = result[i].getValue();
             if(result[i].getName() === "nickname") userAttributes.nickname = result[i].getValue();
             if(result[i].getName() === "sub") userAttributes.sub = result[i].getValue();
             if(result[i].getName() === "email_verified") userAttributes.emailVerified = Boolean(result[i].getValue());
+            if(result[i].getName() === "s3_avatar_url") userAttributes.s3_avatar_url = result[i].getValue();
           }
           this.setUserAttributes(userAttributes);
         });
@@ -86,7 +90,8 @@ class UserStore {
         email: '',
         nickname: '',
         sub: '',
-        emailVerified: false
+        emailVerified: false,
+        s3_avatar_url: ''
       });
     }
   }
@@ -116,6 +121,28 @@ class UserStore {
       filetype: filetype
     };
     return axios.post(url, JSON.stringify(body));
+  }
+
+  @action UpdateS3Avatar = (avatarName: string) => {
+    let update = new Promise((resolve, reject) => {
+      if(!this.cognitoUser) {
+        return new Error('NotLogined');
+      }
+      var attributeList = [];
+      var attribute = {
+        Name: 'custom:s3_avatar_url',
+        Value: avatarName,
+      };
+      attributeList.push(attribute);
+      console.log('start update', avatarName);
+      this.cognitoUser.updateAttributes(attributeList, (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(result);
+      });
+    });
+    return update;
   }
 }
 

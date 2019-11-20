@@ -87,8 +87,13 @@ class DashboardContainer extends React.Component<Iprops> {
 
     UserStore.UpdateAvatar(file, filetype)
       .then(data => {
-        console.log(data);
-        this.setState({ confirmLoading: false, visible: false })
+        UserStore.UpdateS3Avatar(data.data.data).then(res => {
+          this.setState({ confirmLoading: false, visible: false });
+          this.props.history.push('/dashboard');
+        }, err => {
+          this.setState({ confirmLoading: false, visible: false });
+          message.error(err.message);
+        });
       });
   };
 
