@@ -38,6 +38,7 @@ class DashboardContainer extends React.Component<Iprops> {
     previewImage: '',
     fileList: [],
     file: null,
+    filetype: null,
     uploadError: false,
   }
 
@@ -62,7 +63,10 @@ class DashboardContainer extends React.Component<Iprops> {
     });
   };
 
-  handleChange = ({ fileList }: UploadChangeParam) => this.setState({ fileList });
+  handleChange = async (info: UploadChangeParam) => {
+    let data = await getBase64(info.fileList[0].originFileObj);
+    this.setState({ file: data, filetype: info.file.type, fileList: info.fileList });
+  }
 
   showModal = () => {
     this.setState({
@@ -71,8 +75,9 @@ class DashboardContainer extends React.Component<Iprops> {
   };
 
   handleOk = () => {
-    const file: RcFile | null = this.state.file;
-    if(file == null) {
+    const file: string | null = this.state.file;
+    const filetype: string | null = this.state.filetype;
+    if(file == null || filetype == null) {
       message.error("Please upload new avatar or cancel");
       return;
     }
@@ -80,10 +85,11 @@ class DashboardContainer extends React.Component<Iprops> {
       confirmLoading: true,
     });
 
-    UserStore.UpdateAvatar(file).then(data => {
-      console.log(data);
-      this.setState({ confirmLoading: false, visible: false });
-    });
+    UserStore.UpdateAvatar(file, filetype)
+      .then(data => {
+        console.log(data);
+        this.setState({ confirmLoading: false, visible: false })
+      });
   };
 
   handleCancel = () => {
@@ -97,7 +103,6 @@ class DashboardContainer extends React.Component<Iprops> {
   }
 
   handleUploadAvatar = (file: RcFile, files: RcFile[]) => {
-    this.setState({ file: file });
     return false;
   }
 

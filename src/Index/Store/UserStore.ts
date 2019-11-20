@@ -1,8 +1,7 @@
 import { observable, action } from 'mobx';
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
-import { RcFile } from 'antd/lib/upload';
 import axios from 'axios';
-import { config } from '../Constants';
+import { config, urlBase } from '../Constants';
 
 // private variable types
 export type UserAttributes = {
@@ -110,12 +109,13 @@ class UserStore {
     }
   }
 
-  @action UpdateAvatar = (file: RcFile) => {
-    let url = '';
-
-    return axios.post(url, file, {
-      
-    });
+  @action UpdateAvatar = (file: string, filetype: string) => {
+    let url = urlBase + '/userAttr/updateAvatar';
+    let body = {
+      file: file,
+      filetype: filetype
+    };
+    return axios.post(url, JSON.stringify(body));
   }
 }
 

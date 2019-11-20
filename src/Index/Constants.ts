@@ -4,3 +4,5 @@ export var config = {
         userPoolClientId: process.env.REACT_APP_AWS_INVESTVALID_USERPOOL_CLIENT_ID
     }
 };
+
+export var urlBase = 'https://api.investvalid.com/v1';
