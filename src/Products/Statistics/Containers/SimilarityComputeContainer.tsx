@@ -4,6 +4,7 @@ import { Breadcrumb } from 'antd';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import { HistoryInterface } from '../../../Utils/Interfaces';
+import SimilarityComputeForm from '../Component/SimilarityComputeForm';
 import '../Style/SimilarityComputeContainer.scss';
 
 @observer
@@ -15,7 +16,7 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
         <Header history={this.props.history} />
         <div className="similarity-compute-main" >
           <div className="similarity-compute-navbar" >
-            <Breadcrumb>
+            <Breadcrumb className="similarity-compute-breadcrumb" >
               <Breadcrumb.Item>
                 <a href="/">Home</a>
               </Breadcrumb.Item>
@@ -29,7 +30,9 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
               Stock Similarity Compute
             </h1>
           </div>
-          
+          <div className="similarity-compute-form-container" >
+            <SimilarityComputeForm history={this.props.history} />
+          </div>
         </div>
         <Footer />
       </div>

@@ -8,19 +8,31 @@
   }
 
   @media screen and (min-width: 768px) {
-    .similarity-compute-navbar {
+    .similarity-compute-navbar,
+    .similarity-compute-form-container {
       width: 750px;
     }
   }
 
-  .similarity-compute-navbar {
+  .similarity-compute-navbar,
+  .similarity-compute-form-container {
     position: relative;
     margin: 0 auto;
+  }
+
+  .similarity-compute-breadcrumb {
+    a {
+      font-size: 18px;
+    }
   }
 
   .similarity-compute-title {
     font-size: 24px;
     margin-top: 15px;
     text-align: center;
+  }
+
+  .similarity-compute-form-container {
+    margin-top: 15px;
   }
 }
