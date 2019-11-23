@@ -1,0 +1,26 @@
+.similarity-compute-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .similarity-compute-main {
+    flex: 1 0 auto;
+  }
+
+  @media screen and (min-width: 768px) {
+    .similarity-compute-navbar {
+      width: 750px;
+    }
+  }
+
+  .similarity-compute-navbar {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .similarity-compute-title {
+    font-size: 24px;
+    margin-top: 15px;
+    text-align: center;
+  }
+}
