@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Card } from 'antd';
+import ReactMarkdown from 'react-markdown';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import { HistoryInterface } from '../../../Utils/Interfaces';
@@ -11,6 +12,7 @@ import '../Style/SimilarityComputeContainer.scss';
 class SimilarityComputeContainer extends React.Component<HistoryInterface> {
 
   render() {
+    let instructionText = "# This is a header\nAnd this is a paragraph";
     return (
       <div className="similarity-compute-container" >
         <Header history={this.props.history} />
@@ -23,6 +25,7 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
               <Breadcrumb.Item>
                 <a href="/products">Products</a>
               </Breadcrumb.Item>
+              <Breadcrumb.Item>Similarity Compute</Breadcrumb.Item>
             </Breadcrumb>
           </div>
           <div className="similarity-compute-title" >
@@ -32,6 +35,18 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
           </div>
           <div className="similarity-compute-form-container" >
             <SimilarityComputeForm history={this.props.history} />
+          </div>
+          <div className="similarity-compute-result-container" >
+            <div className="similarity-compute-board" >
+              <h1>Score: </h1>
+            </div>
+          </div>
+          <div className="similarity-compute-instruction" >
+            <Card
+              title="Instruction"
+            >
+              <ReactMarkdown source={instructionText} />
+            </Card>
           </div>
         </div>
         <Footer />
