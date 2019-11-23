@@ -27,6 +27,7 @@ class UserStore {
     emailVerified: false,
     s3_avatar_url: ''
   };
+  @observable userAvatarBase64: string = '';
 
   // actions
   @action setCognitoUser = (cognitoUser: CognitoUser | null) => {
@@ -59,6 +60,7 @@ class UserStore {
         cognitoUser.getUserAttributes((err, result) => {
           if(err) {
             console.log(err.message);
+            return;
           }
           if(result === undefined) return;
           var userAttributes: UserAttributes = {
@@ -73,9 +75,12 @@ class UserStore {
             if(result[i].getName() === "nickname") userAttributes.nickname = result[i].getValue();
             if(result[i].getName() === "sub") userAttributes.sub = result[i].getValue();
             if(result[i].getName() === "email_verified") userAttributes.emailVerified = Boolean(result[i].getValue());
-            if(result[i].getName() === "s3_avatar_url") userAttributes.s3_avatar_url = result[i].getValue();
+            if(result[i].getName() === "custom:s3_avatar_url") userAttributes.s3_avatar_url = result[i].getValue();
           }
           this.setUserAttributes(userAttributes);
+          this.getAvatar().then(data => {
+            this.userAvatarBase64 = data.data.data;
+          }, err => console.log(err))
         });
       });
     }
@@ -115,7 +120,7 @@ class UserStore {
   }
 
   @action UpdateAvatar = (file: string, filetype: string) => {
-    let url = urlBase + '/userAttr/updateAvatar';
+    let url = `${urlBase}/userAttr/updateAvatar`;
     let body = {
       file: file,
       filetype: filetype
@@ -134,7 +139,6 @@ class UserStore {
         Value: avatarName,
       };
       attributeList.push(attribute);
-      console.log('start update', avatarName);
       this.cognitoUser.updateAttributes(attributeList, (err, result) => {
         if (err) {
           reject(err);
@@ -143,6 +147,11 @@ class UserStore {
       });
     });
     return update;
+  }
+
+  @action getAvatar = () => {
+    let url = `${urlBase}/userAttr/getAvatar/${this.userAttributes.s3_avatar_url}`;
+    return axios.get(url);
   }
 }
 

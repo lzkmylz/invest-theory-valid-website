@@ -157,7 +157,14 @@ class DashboardContainer extends React.Component<Iprops> {
         <div className="dashboard-main" >
           <div className="dashboard-user-profile" >
             <div className="dashboard-user-avatar" >
-              <Avatar size={128} icon="user"/>
+              <Avatar
+                size={128}
+                src={
+                  UserStore.userAvatarBase64 ?
+                  `data:image/${UserStore.userAttributes.s3_avatar_url.split('.')[1]};base64,${UserStore.userAvatarBase64}` :
+                  'user'
+                }
+              />
               <Button
                 type="primary"
                 size="small"
