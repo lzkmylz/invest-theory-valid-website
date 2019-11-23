@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import Clipboard from 'react-clipboard.js';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import '../Style/DonateContainer.scss';
@@ -8,13 +9,7 @@ import AliPayQR from '../images/AliPayQR.jpeg';
 import WeChanSQ from '../images/WeChanSQ.jpeg';
 import BTCQR from '../images/BTCQR.png';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class DonateContainer extends React.Component<Iprops> {
+class DonateContainer extends React.Component<HistoryInterface> {
   getText() {
     return 'bc1qfkyqc6awydsqv7jtn0429mcdd296ftfejuxgxp';
   }

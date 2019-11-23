@@ -1,11 +1,7 @@
 import React from 'react';
 import '../Style/IndexFooter.scss';
 
-interface Iprops {
-  padding?: number | undefined
-}
-
-class IndexFooter extends React.Component<Iprops> {
+class IndexFooter extends React.Component {
   render() {
     return (
       <div

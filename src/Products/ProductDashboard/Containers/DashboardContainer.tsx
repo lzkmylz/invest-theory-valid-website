@@ -3,16 +3,11 @@ import { observer } from 'mobx-react';
 import { List, Card, Collapse } from 'antd';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
+import { HistoryInterface } from '../../../Utils/Interfaces';
 import '../Style/DashboardContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
 @observer
-class DashboardContainer extends React.Component<Iprops> {
+class DashboardContainer extends React.Component<HistoryInterface> {
   render() {
     const { Panel } = Collapse;
     const data = [{

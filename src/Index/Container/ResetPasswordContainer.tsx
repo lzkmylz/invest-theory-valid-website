@@ -2,15 +2,10 @@ import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import ResetPasswordForm from '../Component/ResetPasswordForm';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/ResetPasswordContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class ResetPasswordContainer extends React.Component<Iprops> {
+class ResetPasswordContainer extends React.Component<HistoryInterface> {
 
   render() {
     return (

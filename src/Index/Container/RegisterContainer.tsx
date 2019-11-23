@@ -2,16 +2,10 @@ import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import RegisterForm from '../Component/RegisterForm';
-
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/RegisterContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class RegisterContainer extends React.Component<Iprops> {
+class RegisterContainer extends React.Component<HistoryInterface> {
   render() {
     return (
       <div className="register-container background-light" >

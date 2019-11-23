@@ -2,15 +2,10 @@ import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import LoginForm from '../Component/LoginForm';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/LoginContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class LoginContainer extends React.Component<Iprops> {
+class LoginContainer extends React.Component<HistoryInterface> {
   render() {    
     return (
       <div className="login-container background-light" >

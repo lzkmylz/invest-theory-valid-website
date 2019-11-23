@@ -12,13 +12,8 @@ import { observer } from 'mobx-react';
 import Header from '../../Index/Component/IndexHeader';
 import Footer from '../../Index/Component/IndexFooter';
 import UserStore from '../../Index/Store/UserStore';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/DashboardContainer.scss';
-
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
 
 function getBase64(file: any) {
   return new Promise((resolve, reject) => {
@@ -30,7 +25,7 @@ function getBase64(file: any) {
 }
 
 @observer
-class DashboardContainer extends React.Component<Iprops> {
+class DashboardContainer extends React.Component<HistoryInterface> {
   state = {
     visible: false,
     confirmLoading: false,

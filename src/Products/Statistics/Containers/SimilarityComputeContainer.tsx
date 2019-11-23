@@ -3,16 +3,11 @@ import { observer } from 'mobx-react';
 import { Breadcrumb } from 'antd';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
+import { HistoryInterface } from '../../../Utils/Interfaces';
 import '../Style/SimilarityComputeContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
 @observer
-class SimilarityComputeContainer extends React.Component<Iprops> {
+class SimilarityComputeContainer extends React.Component<HistoryInterface> {
 
   render() {
     return (

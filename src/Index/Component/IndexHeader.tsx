@@ -2,16 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Menu, Dropdown, Icon, Button } from 'antd';
 import UserStore from '../Store/UserStore';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/IndexHeader.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
 @observer
-class IndexHeader extends React.Component<Iprops> {
+class IndexHeader extends React.Component<HistoryInterface> {
 
   handleMenuClick = (e: any) => {
     switch(e.key) {

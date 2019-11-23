@@ -2,15 +2,10 @@ import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import ForgetPasswordForm from '../Component/ForgetPasswordForm';
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/ForgetPasswordContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class ForgetPasswordContainer extends React.Component<Iprops> {
+class ForgetPasswordContainer extends React.Component<HistoryInterface> {
   render() {
     return (
       <div className="forgetpw-container" >

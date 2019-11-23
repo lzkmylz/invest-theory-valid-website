@@ -4,14 +4,9 @@ import Header from '../Component/IndexHeader';
 import TitleContent from '../Component/TitleContent';
 import ProductContent from '../Component/IndexProductContent';
 import Footer from '../Component/IndexFooter';
+import { HistoryInterface } from '../../Utils/Interfaces';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class IndexContainer extends React.Component<Iprops> {
+class IndexContainer extends React.Component<HistoryInterface> {
   render() {
     return (
       <div className="index-container background-light">

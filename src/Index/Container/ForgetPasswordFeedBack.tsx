@@ -2,15 +2,10 @@ import React from 'react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import Countdown, { CountdownRenderProps } from "react-countdown-now";
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/ForgetPasswordFeedBack.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
-class ForgetPasswordFeedBack extends React.Component<Iprops> {
+class ForgetPasswordFeedBack extends React.Component<HistoryInterface> {
   render() {
     const renderer = ({ hours, minutes, seconds, completed }: CountdownRenderProps) => {
       if (completed) {

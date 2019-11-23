@@ -3,17 +3,11 @@ import { observer } from 'mobx-react';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import SignupConfirmForm from '../Component/SignupConfirmForm';
-
+import { HistoryInterface } from '../../Utils/Interfaces';
 import '../Style/SignupConfirmContainer.scss';
 
-interface Iprops {
-  history: {
-    push(url: String): Function
-  }
-}
-
 @observer
-class SignupConfirmContainer extends React.Component<Iprops> {
+class SignupConfirmContainer extends React.Component<HistoryInterface> {
   
   render() {
     return (
