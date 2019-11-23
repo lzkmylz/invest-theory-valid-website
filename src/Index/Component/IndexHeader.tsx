@@ -76,8 +76,8 @@ class IndexHeader extends React.Component<Iprops> {
         </h1>
         <div className="header-menu mobile" >
           <Dropdown overlay={Boolean(UserStore.accessToken) ? mobileSignedMenu : mobileUnsignMenu} >
-            <Button style={{ backgroundColor: "#151617" }} >
-              <Icon type="menu" style={{ color: '#fff' }} />
+            <Button >
+              <Icon type="menu" />
             </Button>
           </Dropdown>
         </div>

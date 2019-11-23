@@ -14,7 +14,7 @@ interface Iprops {
 class IndexContainer extends React.Component<Iprops> {
   render() {
     return (
-      <div className="index-container background-dark">
+      <div className="index-container background-light">
         <Header history={this.props.history} />
         <TitleContent />
         <ProductContent />

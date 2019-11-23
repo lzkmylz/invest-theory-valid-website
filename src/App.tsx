@@ -8,7 +8,7 @@ import 'reset-css';
 const App: React.FC = () => {
   AWS.config.region = 'ap-southeast-1';
   return (
-    <div className="App background-dark">
+    <div className="App background-light">
       <Router />
     </div>
   );

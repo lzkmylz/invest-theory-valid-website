@@ -17,7 +17,7 @@
     color: inherit;
   }
   a:hover {
-    color: #fff;
+    color: #ff4d4f;
   }
 }
 
@@ -40,13 +40,21 @@
     }
     a {
       text-decoration: none;
-      color: #fff;
+      color: inherit;
     }
   }
 
   .header-nav-item:hover {
     cursor: pointer;
-    border-bottom: solid 2px #ffffff;
+    border-bottom: solid 2px #91d5ff;
+
+    a {
+      text-decoration: none;
+      color: #40a9ff;
+    }
+    p {
+      color: #40a9ff;
+    }
   }
 }
 
@@ -61,7 +69,7 @@
   cursor: pointer;
 }
 .header-dropdown:hover {
-  color: #fff;
+  color: #ffd666;
 }
 
 .header-login {
@@ -79,7 +87,7 @@
     color: inherit;
   }
   .header-login-a:hover {
-    color: #fff;
+    color: #ffd666;
   }
   .header-signup-div {
     flex: 1;
@@ -88,7 +96,7 @@
     border-radius: 5px;
   }
   .header-signup-div:hover {
-    color: #fff;
+    color: #ffd666;
   }
   .header-signup-a {
     text-decoration: none;
@@ -98,7 +106,6 @@
 
 .header-menu {
   display: flex;
-  color: white;
   align-items: center;
   justify-content: center;
 }

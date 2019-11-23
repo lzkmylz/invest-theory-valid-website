@@ -14,7 +14,7 @@ interface Iprops {
 class RegisterContainer extends React.Component<Iprops> {
   render() {
     return (
-      <div className="register-container background-dark" >
+      <div className="register-container background-light" >
         <Header history={this.props.history} />
         <div className="register-main" >
           <div className="register-title" >

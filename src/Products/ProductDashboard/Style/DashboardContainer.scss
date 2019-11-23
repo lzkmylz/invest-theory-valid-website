@@ -6,4 +6,31 @@
   .product-dashboard-main {
     flex: 1 0 auto;
   }
+
+  @media screen and (min-width: 768px) {
+    .product-container {
+      width: 750px;
+    }
+  }
+  .product-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .product-card {
+    .ant-card-head {
+      text-align: center;
+      background-color: #006d75;
+      color: #fff;
+    }
+    .ant-card-body {
+      background-color: #595959;
+      color: #fff;
+    }
+    .ant-collapse-item {
+      background-color: #595959;
+    }
+  }
 }

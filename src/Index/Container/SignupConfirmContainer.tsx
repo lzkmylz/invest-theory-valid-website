@@ -17,7 +17,7 @@ class SignupConfirmContainer extends React.Component<Iprops> {
   
   render() {
     return (
-      <div className="signup-confirm-container background-dark" >
+      <div className="signup-confirm-container background-light" >
         <Header history={this.props.history} />
         <div className="signup-confirm-main" >
           <div className="signup-confirm-title" >

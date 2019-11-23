@@ -13,7 +13,7 @@ interface Iprops {
 class LoginContainer extends React.Component<Iprops> {
   render() {    
     return (
-      <div className="login-container background-dark" >
+      <div className="login-container background-light" >
         <Header history={this.props.history} />
         <div className="login-content" >
           <div className="img-flex-container" >
