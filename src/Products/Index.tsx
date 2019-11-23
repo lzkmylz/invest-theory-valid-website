@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import UserStore from '../Index/Store/UserStore';
 import ProductDashboard from './ProductDashboard/Index';
+import Statistics from './Statistics/Index';
 
 @observer
 class Index extends React.Component {
@@ -11,6 +12,7 @@ class Index extends React.Component {
     return (
       <Switch>
         <Route path="/products" component={ProductDashboard} exact={true} />
+        <Route path="/products/similarityCompute" component={Statistics} />
       </Switch>
     );
   }

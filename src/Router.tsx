@@ -19,6 +19,7 @@ class Router extends React.Component {
           <Route path="/donate" component={Index} />
           <Route path="/dashboard" component={DashboardIndex} />
           <Route path="/products" component={Products} />
+          <Route path="/products/similarityCompute" component={Products} />
         </Switch>
       </BrowserRouter>
     );
