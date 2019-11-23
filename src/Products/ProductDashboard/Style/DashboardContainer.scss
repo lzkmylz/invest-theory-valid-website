@@ -22,15 +22,11 @@
   .product-card {
     .ant-card-head {
       text-align: center;
-      background-color: #006d75;
-      color: #fff;
     }
-    .ant-card-body {
-      background-color: #595959;
-      color: #fff;
-    }
-    .ant-collapse-item {
-      background-color: #595959;
+    .ant-card-cover {
+      width: 50%;
+      height: 50%;
+      margin: 0 auto;
     }
   }
 }

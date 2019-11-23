@@ -18,10 +18,10 @@ class DashboardContainer extends React.Component<Iprops> {
     const data = [{
       title: 'Statistics Based Products'
     }];
-    const text = (
+    const similarityText = (
       <p style={{ paddingLeft: 24 }}>
-        A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found
-        as a welcome guest in many households across the world.
+        Compute the similarity of two stocks. If two stocks have high similarity, they can
+        be consider as a pair. <a href="/products/similarityCompute" >Details</a>
       </p>
     );
     return (
@@ -30,23 +30,18 @@ class DashboardContainer extends React.Component<Iprops> {
         <div className="product-dashboard-main" >
           <div className="product-container" >
             <List
-              grid={{ gutter: 16, column: 3 }}
+              grid={{ gutter: 16, column: 2 }}
               dataSource={data}
               renderItem={(item: any) => (
                 <List.Item>
                   <Card
                     className="product-card"
                     title={item.title}
+                    cover={<img src="./statistics.jpg" alt="statistics-logo" />}
                   >
                     <Collapse bordered={false} defaultActiveKey={['1']}>
-                      <Panel header="This is panel header 1" key="1">
-                        {text}
-                      </Panel>
-                      <Panel header="This is panel header 2" key="2">
-                        {text}
-                      </Panel>
-                      <Panel header="This is panel header 3" key="3">
-                        {text}
+                      <Panel header="Stock Similarity Compute" key="1">
+                        {similarityText}
                       </Panel>
                     </Collapse>
                   </Card>
