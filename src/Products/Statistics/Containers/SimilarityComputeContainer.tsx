@@ -10,9 +10,20 @@ import '../Style/SimilarityComputeContainer.scss';
 
 @observer
 class SimilarityComputeContainer extends React.Component<HistoryInterface> {
+  state = {
+    instructionText: ''
+  }
+
+  componentDidMount = () => {
+    const instructionReadPath = require('../MdTexts/SimilarityComputeMD.md');
+    fetch(instructionReadPath)
+    .then(res => res.text())
+    .then(text => this.setState({ instructionText: text }));
+  }
 
   render() {
-    let instructionText = "# This is a header\nAnd this is a paragraph";
+    const { instructionText } = this.state;
+
     return (
       <div className="similarity-compute-container" >
         <Header history={this.props.history} />
@@ -45,7 +56,10 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
             <Card
               title="Instruction"
             >
-              <ReactMarkdown source={instructionText} />
+              <ReactMarkdown
+                escapeHtml={false}
+                source={instructionText}
+              />
             </Card>
           </div>
         </div>
