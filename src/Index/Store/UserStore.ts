@@ -120,7 +120,7 @@ class UserStore {
   }
 
   @action UpdateAvatar = (file: string, filetype: string) => {
-    let url = `${urlBase}/userAttr/updateAvatar`;
+    let url = `${urlBase}/v1/userAttr/updateAvatar`;
     let body = {
       file: file,
       filetype: filetype
@@ -150,7 +150,7 @@ class UserStore {
   }
 
   @action getAvatar = () => {
-    let url = `${urlBase}/userAttr/getAvatar/${this.userAttributes.s3_avatar_url}`;
+    let url = `${urlBase}/v1/userAttr/getAvatar/${this.userAttributes.s3_avatar_url}`;
     return axios.get(url);
   }
 }

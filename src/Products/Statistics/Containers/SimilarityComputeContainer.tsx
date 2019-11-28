@@ -6,6 +6,7 @@ import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import { HistoryInterface } from '../../../Utils/Interfaces';
 import SimilarityComputeForm from '../Component/SimilarityComputeForm';
+import StatisticsStore from '../Stores/StatisticsStore';
 import '../Style/SimilarityComputeContainer.scss';
 
 @observer
@@ -49,7 +50,7 @@ class SimilarityComputeContainer extends React.Component<HistoryInterface> {
           </div>
           <div className="similarity-compute-result-container" >
             <div className="similarity-compute-board" >
-              <h1>Score: </h1>
+              <h1>Score: {StatisticsStore.similarityScore}</h1>
             </div>
           </div>
           <div className="similarity-compute-instruction" >

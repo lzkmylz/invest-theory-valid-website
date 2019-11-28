@@ -5,4 +5,4 @@ export var config = {
     }
 };
 
-export var urlBase = 'https://api.investvalid.com/v1';
+export var urlBase = 'https://api.investvalid.com';
