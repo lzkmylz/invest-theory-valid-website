@@ -17,6 +17,7 @@ class Router extends React.Component {
           <Route path="/forget-password" component={Index} />
           <Route path="/reset-success" component={Index} />
           <Route path="/donate" component={Index} />
+          <Route path="/support" component={Index} />
           <Route path="/dashboard" component={DashboardIndex} />
           <Route path="/products" component={Products} />
           <Route path="/products/similarityCompute" component={Products} />

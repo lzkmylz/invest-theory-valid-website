@@ -9,6 +9,7 @@ import '../Style/IndexHeader.scss';
 class IndexHeader extends React.Component<HistoryInterface> {
 
   handleMenuClick = (e: any) => {
+    console.log(e)
     switch(e.key) {
       case "logout":
         UserStore.UserLogOut();
@@ -31,6 +32,9 @@ class IndexHeader extends React.Component<HistoryInterface> {
         return;
       case "products":
         this.props.history.push("/products");
+        return;
+      case "support":
+        this.props.history.push("/support");
         return;
       default:
         console.log(e);
@@ -79,7 +83,7 @@ class IndexHeader extends React.Component<HistoryInterface> {
         <ul className="header-nav-container desktop" >
           <li className="header-nav-item" ><p><a href="/products" >Products</a></p></li>
           <li className="header-nav-item" ><p><a href="/donate" >Donate</a></p></li>
-          <li className="header-nav-item" ><p>Support</p></li>
+          <li className="header-nav-item" ><p><a href="/support" >Support</a></p></li>
         </ul>
         <div className="header-login-container desktop" >
           {
