@@ -11,6 +11,7 @@ import {
   MessageList,
   Input,
 } from 'react-chat-elements';
+import RobotStore from '../Store/RobotStore';
 import "react-chat-elements/dist/main.css";
 
 
@@ -45,6 +46,7 @@ class SupportContainer extends React.Component<HistoryInterface> {
       date: new Date(),
     }
     this.setState({ messages: this.state.massages.push(message) });
+    RobotStore.getAnswer(text);
   }
 
   onSubmitMessage = async (e: any) => {
