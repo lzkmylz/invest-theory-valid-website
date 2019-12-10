@@ -30,31 +30,29 @@ class SupportContainer extends React.Component<HistoryInterface> {
       if(e.key === "Enter") {
         let text = String($(".rce-input").val());
         if(text) {
-          let message = {
-            position: 'right',
-            type: 'text',
-            text: text,
-            date: new Date(),
-          }
-          this.setState({ messages: this.state.massages.push(message) });
+          this.addToMessages(text.toString());
         }
         $(".rce-input").val("")
       }
     });
   }
 
+  addToMessages = (text: string) => {
+    let message = {
+      position: 'right',
+      type: 'text',
+      text: text.toString(),
+      date: new Date(),
+    }
+    this.setState({ messages: this.state.massages.push(message) });
+  }
+
   onSubmitMessage = async (e: any) => {
     let text = await $(".rce-input").val();
     if(text) {
-      let message = {
-        position: 'right',
-        type: 'text',
-        text: text.toString(),
-        date: new Date(),
-      }
-      this.setState({ messages: this.state.massages.push(message) });
+      this.addToMessages(text.toString());
     }
-    $(".rce-input").val("").promise();
+    $(".rce-input").val("");
   }
 
   render() {
