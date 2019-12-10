@@ -1,15 +1,18 @@
 import React from 'react';
 import { Button } from 'antd';
 import { observer } from 'mobx-react';
+import $ from 'jquery';
 import Header from '../Component/IndexHeader';
 import Footer from '../Component/IndexFooter';
 import { HistoryInterface } from '../../Utils/Interfaces';
 import "../Style/SupportContainer.scss";
+/// <reference path=".../../Utils/react-chat-elements.d.ts" />
+import {
+  MessageList,
+  Input,
+} from 'react-chat-elements';
 import "react-chat-elements/dist/main.css";
 
-const ChatElement = require('react-chat-elements');
-const MessageList = ChatElement.MessageList;
-const MessageInput = ChatElement.Input;
 
 @observer
 class SupportContainer extends React.Component<HistoryInterface> {
@@ -22,6 +25,38 @@ class SupportContainer extends React.Component<HistoryInterface> {
     }]
   }
 
+  componentDidMount = () => {
+    $(".msg-input").keypress((e) => {
+      if(e.key === "Enter") {
+        let text = String($(".rce-input").val());
+        if(text) {
+          let message = {
+            position: 'right',
+            type: 'text',
+            text: text,
+            date: new Date(),
+          }
+          this.setState({ messages: this.state.massages.push(message) });
+        }
+        $(".rce-input").val("")
+      }
+    });
+  }
+
+  onSubmitMessage = async (e: any) => {
+    let text = await $(".rce-input").val();
+    if(text) {
+      let message = {
+        position: 'right',
+        type: 'text',
+        text: text.toString(),
+        date: new Date(),
+      }
+      this.setState({ messages: this.state.massages.push(message) });
+    }
+    $(".rce-input").val("").promise();
+  }
+
   render() {
     const { massages } = this.state;
     return (
@@ -29,7 +64,7 @@ class SupportContainer extends React.Component<HistoryInterface> {
         <Header history={this.props.history} />
         <div className="support-content" >
           <div className="support-title" >
-            <h1>Support</h1>
+            <h1 className="support-title-h1" >Support</h1>
           </div>
           <div className="chat-board-container" >
             <div className="chat-msg-container" >
@@ -40,12 +75,12 @@ class SupportContainer extends React.Component<HistoryInterface> {
                 dataSource={massages}
               />
             </div>
-            <MessageInput
+            <Input
               className="msg-input"
               placeholder="Type here..."
-              multiline={true}
+              multiline={false}
               rightButtons={
-                <Button type="primary" >Send</Button>
+                <Button type="primary" onClick={this.onSubmitMessage} >Send</Button>
               }
             />
           </div>
