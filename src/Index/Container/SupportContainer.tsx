@@ -17,15 +17,6 @@ import "react-chat-elements/dist/main.css";
 
 @observer
 class SupportContainer extends React.Component<HistoryInterface> {
-  state = {
-    massages: [{
-      position: 'left',
-      type: 'text',
-      text: 'Please enter your questions here and wait response from our QA system.',
-      date: new Date(),
-    }]
-  }
-
   componentDidMount = () => {
     $(".msg-input").keypress((e) => {
       if(e.key === "Enter") {
@@ -36,6 +27,7 @@ class SupportContainer extends React.Component<HistoryInterface> {
         $(".rce-input").val("")
       }
     });
+    RobotStore.initMessages();
   }
 
   addToMessages = (text: string) => {
@@ -45,7 +37,7 @@ class SupportContainer extends React.Component<HistoryInterface> {
       text: text.toString(),
       date: new Date(),
     }
-    this.setState({ messages: this.state.massages.push(message) });
+    RobotStore.addToMessages(message);
     RobotStore.getAnswer(text);
   }
 
@@ -58,7 +50,6 @@ class SupportContainer extends React.Component<HistoryInterface> {
   }
 
   render() {
-    const { massages } = this.state;
     return (
       <div className="support-container" >
         <Header history={this.props.history} />
@@ -72,7 +63,7 @@ class SupportContainer extends React.Component<HistoryInterface> {
                 className='message-list'
                 lockable={false}
                 toBottomHeight={'100%'}
-                dataSource={massages}
+                dataSource={RobotStore.messages}
               />
             </div>
             <Input
