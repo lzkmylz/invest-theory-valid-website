@@ -10,15 +10,33 @@ import '../Style/DashboardContainer.scss';
 class DashboardContainer extends React.Component<HistoryInterface> {
   render() {
     const { Panel } = Collapse;
-    const data = [{
-      title: 'Statistics Based Products'
-    }];
     const similarityText = (
       <p style={{ paddingLeft: 24 }}>
         Compute the similarity of two stocks. If two stocks have high similarity, they can
         be consider as a pair and use statistical arbitrage methods. <a href="/products/similarityCompute" >Details</a>
       </p>
     );
+    const GRUPredictAH = (
+      <p style={{ paddingLeft: 24 }} >
+        Predict the price of stock in China A stock market based on its previous prices
+        in A and HongKong H stock market.
+        <a href="/products/GRUPredictAH" >Details</a>
+      </p>
+    )
+    const data = [{
+      title: 'Statistics Based Products',
+      cover: "./statistics.jpg",
+      coverAlt: "statistics-logo",
+      panelHeader: ["Stock Similarity Compute"],
+      panelText: [similarityText]
+    }, {
+      title: 'Deep Learning Based Products',
+      cover: "./DL-logo.jpg",
+      coverAlt: "DL-logo",
+      panelHeader: ["A+H stock price predict based on GRU"],
+      panelText: [GRUPredictAH]
+    }];
+    
     return (
       <div className="product-dashboard-container" >
         <Header history={this.props.history} />
@@ -27,17 +45,21 @@ class DashboardContainer extends React.Component<HistoryInterface> {
             <List
               grid={{ gutter: 16, column: 2 }}
               dataSource={data}
-              renderItem={(item: any) => (
+              renderItem={(item: any, ind) => (
                 <List.Item>
                   <Card
                     className="product-card"
                     title={item.title}
-                    cover={<img src="./statistics.jpg" alt="statistics-logo" />}
+                    cover={<img src={item.cover} alt={item.coverAlt} />}
                   >
-                    <Collapse bordered={false} defaultActiveKey={['1']}>
-                      <Panel header="Stock Similarity Compute" key="1">
-                        {similarityText}
-                      </Panel>
+                    <Collapse bordered={false}>
+                      {
+                        item.panelHeader.map((obj: any, index: number) => (
+                          <Panel header={obj} key={index}>
+                            {item.panelText[index]}
+                          </Panel>
+                        ))
+                      }
                     </Collapse>
                   </Card>
                 </List.Item>
