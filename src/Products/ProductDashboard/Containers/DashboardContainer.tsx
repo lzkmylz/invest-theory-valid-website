@@ -16,7 +16,7 @@ class DashboardContainer extends React.Component<HistoryInterface> {
     const similarityText = (
       <p style={{ paddingLeft: 24 }}>
         Compute the similarity of two stocks. If two stocks have high similarity, they can
-        be consider as a pair. <a href="/products/similarityCompute" >Details</a>
+        be consider as a pair and use statistical arbitrage methods. <a href="/products/similarityCompute" >Details</a>
       </p>
     );
     return (

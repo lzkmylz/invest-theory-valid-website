@@ -13,4 +13,4 @@ then, we have:
 
 ε&#770; = P<sub>t</sub><sup>B</sup> - (α&#770; + βP<sub>t</sub><sup>A</sup>)
 
-If ε&#770;<sub>t</sub> is reposeful, then the two stocks have co-integration property. And we will compute the score of the stock pair by ε&#770;. If ε&#770; is high, the score will be relative low. Else if the ε&#770; is low, the score will be high.
+The score is valued by the R-squrd of regression function.
