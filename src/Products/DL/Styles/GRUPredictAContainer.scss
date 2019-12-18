@@ -6,4 +6,20 @@
   .grupredict-a-main {
     flex: 1 0 auto;
   }
+
+  .grupredict-a-title-container {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .grupredict-a-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .grupredict-a-selectname {
+      margin-right: 10px;
+    }
+  }
 }
