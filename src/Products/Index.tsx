@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import UserStore from '../Index/Store/UserStore';
 import ProductDashboard from './ProductDashboard/Index';
 import Statistics from './Statistics/Index';
+import DL from './DL/Index';
 
 @observer
 class Index extends React.Component {
@@ -13,6 +14,7 @@ class Index extends React.Component {
       <Switch>
         <Route path="/products" component={ProductDashboard} exact={true} />
         <Route path="/products/similarityCompute" component={Statistics} />
+        <Route path="/products/GRUPredictA" component={DL} />
       </Switch>
     );
   }

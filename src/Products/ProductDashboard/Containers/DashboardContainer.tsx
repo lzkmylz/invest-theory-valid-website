@@ -18,9 +18,9 @@ class DashboardContainer extends React.Component<HistoryInterface> {
     );
     const GRUPredictAH = (
       <p style={{ paddingLeft: 24 }} >
-        Predict the price of stock in China A stock market based on its previous prices
-        in A and HongKong H stock market.
-        <a href="/products/GRUPredictAH" >Details</a>
+        Using deep learning to predict the price of stock in China A stock market
+        based on its previous prices.
+        <a href="/products/GRUPredictA" >Details</a>
       </p>
     )
     const data = [{
@@ -33,7 +33,7 @@ class DashboardContainer extends React.Component<HistoryInterface> {
       title: 'Deep Learning Based Products',
       cover: "./DL-logo.jpg",
       coverAlt: "DL-logo",
-      panelHeader: ["A+H stock price predict based on GRU"],
+      panelHeader: ["A stock price predict based on GRU"],
       panelText: [GRUPredictAH]
     }];
     
