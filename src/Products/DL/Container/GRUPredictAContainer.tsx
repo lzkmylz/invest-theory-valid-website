@@ -8,6 +8,7 @@ import {
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import DLStore from '../Stores/DLStore';
+import StockChart from '../Components/StockChart';
 import "../Styles/GRUPredictAContainer.scss";
 
 @observer
@@ -29,14 +30,12 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
           </Row>
           <Row className="grupredict-a-select" >
             <span className="grupredict-a-selectname" >Select Stock:</span>
-            <Select defaultValue="lucy" style={{ width: 120 }}>
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
-              <Option value="disabled" disabled>
-                Disabled
-              </Option>
-              <Option value="Yiminghe">yiminghe</Option>
+            <Select defaultValue="601939.SH" style={{ width: 120 }}>
+              <Option value="601939.SH">601939.SH</Option>
             </Select>
+          </Row>
+          <Row>
+            <StockChart />
           </Row>
         </div>
         <Footer />
