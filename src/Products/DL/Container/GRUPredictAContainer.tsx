@@ -16,6 +16,7 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
 
   componentDidMount = () => {
     DLStore.getStockData("601939.SH");
+    DLStore.getGRUPredictData("601939.SH");
   }
 
   render() {

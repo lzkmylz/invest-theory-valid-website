@@ -14,6 +14,10 @@ class DLStore {
     name: 'real',
     data: [],
   };
+  @observable predictStockData: stockData = {
+    name: 'predict',
+    data: [],
+  }
 
   @action getIndexData = () => {
     let url = `${urlBase}/v1/stockData/getIndexData`;
@@ -27,7 +31,35 @@ class DLStore {
     });
   }
 
-  @action getStockData = async (ts_code: string) => {
+  @action getGRUPredictData = (stock_name: string) => {
+    let url = `${urlBase}/v1/stockData/getGRUPredictData`;
+    let reqBody = {
+      stock_name: stock_name,
+      start_date: moment().subtract(15, 'days').format('YYYYMMDD'),
+      end_date: moment().format('YYYYMMDD'),
+    };
+    axios.post(url, reqBody).then((data) => {
+      let predictStockData: stockData = {
+        name: 'predict',
+        data: [],
+      };
+      let items: any = data.data;
+      for(let i = 0; i < items.length; i++) {
+        let singleData = {
+          name: items[i].stock_name,
+          x: moment(items[i].trade_date, "YYYYMMDD").valueOf(),
+          y: -1,
+        };
+        if(parseInt(items[i].predict_result)) {
+          singleData.y = 1;
+        }
+        predictStockData.data.push(singleData);
+      }
+      this.predictStockData = predictStockData;
+    });
+  }
+
+  @action getStockData = (ts_code: string) => {
     let url = `${urlBase}/v1/stockData/getAStockData`;
     let reqBody = {
       ts_code: ts_code,

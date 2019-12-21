@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import * as Highcharts from 'highcharts';
 import DLStore from '../Stores/DLStore';
 
@@ -19,7 +18,6 @@ class StockChart extends React.Component {
   }
 
   updateChart = () => {
-    console.log(toJS(DLStore.currentStockData))
     var options: any = {
       chart: {
           type: 'spline'
@@ -95,7 +93,7 @@ class StockChart extends React.Component {
               },
           }
       },
-      series: [DLStore.currentStockData],
+      series: [DLStore.currentStockData, DLStore.predictStockData],
       navigation: {
           menuItemStyle: {
               fontSize: '10px'
@@ -106,7 +104,7 @@ class StockChart extends React.Component {
   }
 
   render() {
-    if(DLStore.currentStockData.data.length !== 0) {
+    if(DLStore.currentStockData.data.length !== 0 && DLStore.predictStockData.data.length !== 0) {
       this.updateChart();
     }
     return (
