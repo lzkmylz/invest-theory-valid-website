@@ -15,7 +15,7 @@ import "../Styles/GRUPredictAContainer.scss";
 class GRUPredictAContainer extends React.Component<HistoryInterface> {
 
   componentDidMount = () => {
-    DLStore.getIndexData();
+    DLStore.getStockData("601939.SH");
   }
 
   render() {
