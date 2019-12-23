@@ -22,4 +22,19 @@
       margin-right: 10px;
     }
   }
+
+  @media screen and (min-width: 768px) {
+    .grupredict-instruction-row {
+      width: 750px;
+      margin: 0 auto;
+    }
+
+    .grupredict-chart-row {
+      margin: 0 auto;
+      width: 750px;
+    }
+    .grupredict-instruction-card {
+      margin-top: 30px;
+    }
+  }
 }

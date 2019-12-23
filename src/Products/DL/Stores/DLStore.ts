@@ -44,6 +44,7 @@ class DLStore {
         data: [],
       };
       let items: any = data.data;
+      items.sort((a: any, b: any) => moment(a.trade_date, "YYYYMMDD").diff(moment(b.trade_date, "YYYYMMDD")));
       for(let i = 0; i < items.length; i++) {
         let singleData = {
           name: items[i].stock_name,

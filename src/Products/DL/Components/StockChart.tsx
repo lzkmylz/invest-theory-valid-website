@@ -3,10 +3,6 @@ import { observer } from 'mobx-react';
 import * as Highcharts from 'highcharts';
 import DLStore from '../Stores/DLStore';
 
-interface data {
-  test: string,
-}
-
 @observer
 class StockChart extends React.Component {
   componentDidMount() {

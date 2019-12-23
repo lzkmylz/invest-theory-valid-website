@@ -4,7 +4,9 @@ import { HistoryInterface } from '../../../Utils/Interfaces';
 import {
   Row,
   Select,
+  Card,
 } from 'antd';
+import ReactMarkdown from 'react-markdown';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import DLStore from '../Stores/DLStore';
@@ -13,13 +15,21 @@ import "../Styles/GRUPredictAContainer.scss";
 
 @observer
 class GRUPredictAContainer extends React.Component<HistoryInterface> {
+  state = {
+    instructionText: ''
+  }
 
   componentDidMount = () => {
     DLStore.getStockData("601939.SH");
     DLStore.getGRUPredictData("601939.SH");
+    const instructionReadPath = require('../MdTexts/GRUPredictA.md');
+    fetch(instructionReadPath)
+    .then(res => res.text())
+    .then(text => this.setState({ instructionText: text }));
   }
 
   render() {
+    const { instructionText } = this.state;
     const { Option } = Select;
 
     return (
@@ -35,8 +45,19 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
               <Option value="601939.SH">601939.SH</Option>
             </Select>
           </Row>
-          <Row>
+          <Row className="grupredict-chart-row" >
             <StockChart />
+          </Row>
+          <Row className="grupredict-instruction-row" >
+            <Card
+              title="Instruction"
+              className="grupredict-instruction-card"
+            >
+              <ReactMarkdown
+                escapeHtml={false}
+                source={instructionText}
+              />
+            </Card>
           </Row>
         </div>
         <Footer />
