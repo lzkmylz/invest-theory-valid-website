@@ -22,6 +22,12 @@ class DashboardContainer extends React.Component<HistoryInterface> {
         based on its previous prices.
         <a href="/products/GRUPredictA" >Details</a>
       </p>
+    );
+    const GRUPredictSHIndex = (
+      <p style={{ paddingLeft: 24 }} >
+        Using deep learning to predict the SH Index based on history data.
+        <a href="/products/GRUPredictSHIndex" >Details</a>
+      </p>
     )
     const data = [{
       title: 'Statistics Based Products',
@@ -33,8 +39,14 @@ class DashboardContainer extends React.Component<HistoryInterface> {
       title: 'Deep Learning Based Products',
       cover: "./DL-logo.jpg",
       coverAlt: "DL-logo",
-      panelHeader: ["A stock price predict based on GRU"],
-      panelText: [GRUPredictAH]
+      panelHeader: [
+        "A stock price predict based on GRU",
+        "SH Index predict based on GRU"
+      ],
+      panelText: [
+        GRUPredictAH,
+        GRUPredictSHIndex
+      ]
     }];
     
     return (

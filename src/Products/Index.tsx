@@ -15,6 +15,7 @@ class Index extends React.Component {
         <Route path="/products" component={ProductDashboard} exact={true} />
         <Route path="/products/similarityCompute" component={Statistics} />
         <Route path="/products/GRUPredictA" component={DL} />
+        <Route path="/products/GRUPredictSHIndex" component={DL} />
       </Switch>
     );
   }

@@ -22,6 +22,7 @@ class Router extends React.Component {
           <Route path="/products" component={Products} />
           <Route path="/products/similarityCompute" component={Products} />
           <Route path="/products/GRUPredictA" component={Products} />
+          <Route path="/products/GRUPredictSHIndex" component={Products} />
         </Switch>
       </BrowserRouter>
     );

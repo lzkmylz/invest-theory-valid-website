@@ -1,0 +1,9 @@
+.grupredict-sh-index {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .grupredict-sh-main {
+    flex: 1 0 auto;
+  }
+}
