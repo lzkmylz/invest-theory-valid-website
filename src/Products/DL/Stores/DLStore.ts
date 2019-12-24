@@ -36,7 +36,7 @@ class DLStore {
     let reqBody = {
       stock_name: stock_name,
       start_date: moment().subtract(15, 'days').format('YYYYMMDD'),
-      end_date: moment().format('YYYYMMDD'),
+      end_date: moment().add(3, 'days').format('YYYYMMDD'),
     };
     axios.post(url, reqBody).then((data) => {
       let predictStockData: stockData = {

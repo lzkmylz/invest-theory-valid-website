@@ -19,6 +19,11 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
     instructionText: ''
   }
 
+  onSelectChange = (value: any) => {
+    DLStore.getStockData(value);
+    DLStore.getGRUPredictData(value);
+  }
+
   componentDidMount = () => {
     DLStore.getStockData("601939.SH");
     DLStore.getGRUPredictData("601939.SH");
@@ -41,8 +46,10 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
           </Row>
           <Row className="grupredict-a-select" >
             <span className="grupredict-a-selectname" >Select Stock:</span>
-            <Select defaultValue="601939.SH" style={{ width: 120 }}>
-              <Option value="601939.SH">601939.SH</Option>
+            <Select defaultValue="601939.SH" style={{ width: 120 }} onChange={this.onSelectChange} >
+              <Option value="601939.SH" >601939.SH</Option>
+              <Option value="600276.SH" >600276.SH</Option>
+              <Option value="600340.SH" >600340.SH</Option>
             </Select>
           </Row>
           <Row className="grupredict-chart-row" >
