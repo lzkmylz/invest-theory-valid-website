@@ -9,7 +9,10 @@ interface stockData {
 }
 
 class DLStore {
-  @observable SHIndexData = [];
+  @observable SHIndexData: stockData = {
+    name: 'real',
+    data: [],
+  };
   @observable currentStockData: stockData = {
     name: 'real',
     data: [],
@@ -22,12 +25,37 @@ class DLStore {
   @action getIndexData = () => {
     let url = `${urlBase}/v1/stockData/getIndexData`;
     let reqBody = {
-      ts_code: "399300.SZ",
+      ts_code: "000001.SH",
       start_date: moment().subtract(15, 'days').format('YYYYMMDD'),
       end_date: moment().format('YYYYMMDD'),
     };
     axios.post(url, reqBody).then(data => {
-      console.log(data);
+      let items = data.data.data.items;
+      let SHIndexData: stockData = {
+        name: 'real',
+        data: [],
+      };
+      for(let i = 0; i < items.length; i++) {
+        let singleData = {
+          name: "SH Index",
+          x: moment(items[i][1], "YYYYMMDD").valueOf(),
+          y: 0,
+          date: items[i][1],
+          close: items[i][2],
+          open: items[i][3],
+          high: items[i][4],
+          low: items[i][5],
+          vol: items[i][9],
+          amount: items[i][10],
+        }
+        if(items[i][2] > items[i][3]) {
+          singleData.y = 1;
+        } else if (items[i][2] < items[i][3]) {
+          singleData.y = -1;
+        }
+        SHIndexData.data.push(singleData);
+      }
+      this.SHIndexData = SHIndexData;
     });
   }
 
