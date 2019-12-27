@@ -8,6 +8,15 @@
   flex: 1 0 auto;
   text-align: center;
 
+  @media screen and (max-width: 768px) {
+    #DonateText {
+      margin-top: 60px !important;
+    }
+    #donateBox {
+      margin-top: 60px !important;
+    }
+  }
+
   h1 {
     font-size: 20px;
     margin: 20px;

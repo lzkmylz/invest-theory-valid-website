@@ -55,7 +55,7 @@ class DashboardContainer extends React.Component<HistoryInterface> {
         <div className="product-dashboard-main" >
           <div className="product-container" >
             <List
-              grid={{ gutter: 16, column: 2 }}
+              grid={{ gutter: 16, xs: 1, sm: 2 }}
               dataSource={data}
               renderItem={(item: any, ind) => (
                 <List.Item>

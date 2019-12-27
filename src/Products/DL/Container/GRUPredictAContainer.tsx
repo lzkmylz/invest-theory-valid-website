@@ -5,6 +5,7 @@ import {
   Row,
   Select,
   Card,
+  Breadcrumb
 } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import Header from '../../../Index/Component/IndexHeader';
@@ -41,6 +42,17 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
       <div className="grupredict-a-container" >
         <Header history={this.props.history} />
         <div className="grupredict-a-main" >
+          <Row>
+            <Breadcrumb className="grupredict-a-breadcrumb" >
+              <Breadcrumb.Item>
+                <a href="/">Home</a>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <a href="/products">Products</a>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>Predict China A Stock</Breadcrumb.Item>
+            </Breadcrumb>
+          </Row>
           <Row className="grupredict-a-title-container" >
             <h1>Predict China A Stock with GRU</h1>
           </Row>

@@ -66,4 +66,13 @@
       margin-bottom: 10px;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .similarity-compute-breadcrumb {
+      margin: 0 10px;
+    }
+    .similarity-compute-board {
+      margin: 0 10px;
+    }
+  }
 }
