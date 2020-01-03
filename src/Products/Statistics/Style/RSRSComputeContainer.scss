@@ -5,4 +5,19 @@
   .rsrs-main {
     flex: 1 0 auto;
   }
+
+  @media screen and (min-width: 768px) {
+    .rsrs-navbar {
+      width: 750px;
+    }
+  }
+
+  .rsrs-navbar {
+    position: relative;
+    margin: 0 auto;
+
+    a {
+      font-size: 18px;
+    }
+  }
 }
