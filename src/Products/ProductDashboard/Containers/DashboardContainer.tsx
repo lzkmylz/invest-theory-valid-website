@@ -16,6 +16,11 @@ class DashboardContainer extends React.Component<HistoryInterface> {
         be consider as a pair and use statistical arbitrage methods. <a href="/products/similarityCompute" >Details</a>
       </p>
     );
+    const rsrsText = (
+      <p style={{ paddingLeft: 24 }} >
+        Compute RSRS indicator of the stock. <a href="products/rsrsCompute" >Details</a>
+      </p>
+    )
     const GRUPredictAH = (
       <p style={{ paddingLeft: 24 }} >
         Using deep learning to predict the price of stock in China A stock market
@@ -33,8 +38,8 @@ class DashboardContainer extends React.Component<HistoryInterface> {
       title: 'Statistics Based Products',
       cover: "./statistics.jpg",
       coverAlt: "statistics-logo",
-      panelHeader: ["Stock Similarity Compute"],
-      panelText: [similarityText]
+      panelHeader: ["Stock Similarity Compute", "RSRS Compute"],
+      panelText: [similarityText, rsrsText]
     }, {
       title: 'Deep Learning Based Products',
       cover: "./DL-logo.jpg",

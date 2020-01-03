@@ -1,0 +1,8 @@
+.rsrs-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .rsrs-main {
+    flex: 1 0 auto;
+  }
+}
