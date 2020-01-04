@@ -7,6 +7,7 @@ import { HistoryInterface } from '../../../Utils/Interfaces';
 import RSRSComputeForm from '../Component/RSRSComputeForm';
 
 import '../Style/RSRSComputeContainer.scss';
+import StatisticsStore from '../Stores/StatisticsStore';
 
 @observer
 class RSRSComputeContainer extends React.Component<HistoryInterface> {
@@ -33,7 +34,11 @@ class RSRSComputeContainer extends React.Component<HistoryInterface> {
           </div>
           <RSRSComputeForm history={this.props.history} />
           <div className="rsrs-result" >
-            <h2>RSRS Compute Result: </h2>
+            {
+              StatisticsStore.rsrsScore ?
+              <h2>RSRS Compute Result: {StatisticsStore.rsrsScore}</h2> :
+              ''
+            }
           </div>
         </div>
         <Footer />

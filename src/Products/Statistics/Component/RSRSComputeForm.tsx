@@ -6,6 +6,7 @@ import {
   Button,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
+import StatisticsStore from '../Stores/StatisticsStore';
 
 import '../Style/RSRSComputeForm.scss';
 
@@ -17,11 +18,19 @@ interface Iprops extends FormComponentProps {
 
 @observer
 class RSRSComputeForm extends React.Component<Iprops> {
+  state = {
+    loading: false
+  }
   handleSubmit = (e: any) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err: any, values: any) => {
       if(!err) {
-        
+        let { stockName } = values;
+        this.setState({ loading: true });
+        StatisticsStore.rsrsCompute(stockName).then(data => {
+          StatisticsStore.rsrsScore = Number(Number(data.data.score).toFixed(3));
+          this.setState({ loading: false });
+        });
       }
     });
   }
@@ -41,6 +50,7 @@ class RSRSComputeForm extends React.Component<Iprops> {
   }
   
   render() {
+    const { loading } = this.state;
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: {
@@ -88,6 +98,7 @@ class RSRSComputeForm extends React.Component<Iprops> {
           <Button
             type="primary"
             htmlType="submit"
+            loading={loading}
           >
             Compute RSRS
           </Button>

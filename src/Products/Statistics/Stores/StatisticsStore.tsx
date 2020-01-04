@@ -5,6 +5,15 @@ import { urlBase } from '../../../Index/Constants';
 
 class StatisticsStore {
   @observable similarityScore: number | null = null;
+  @observable rsrsScore: number | null = null;
+
+  @action rsrsCompute = (stockName: string) => {
+    let url = `${urlBase}/v2/statistics/rsrs_compute`;
+    let requestBody = {
+      stock: stockName
+    };
+    return axios.post(url, JSON.stringify(requestBody));
+  }
 
   @action similarityCompute = (stock1: string, stock2: string, timeRange: string) => {
     let endDate = moment().format('YYYYMMDD');
