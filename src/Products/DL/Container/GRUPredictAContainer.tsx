@@ -62,6 +62,7 @@ class GRUPredictAContainer extends React.Component<HistoryInterface> {
               <Option value="601939.SH" >601939.SH</Option>
               <Option value="600276.SH" >600276.SH</Option>
               <Option value="600340.SH" >600340.SH</Option>
+              <Option value="000415.SZ" >000415.SZ</Option>
             </Select>
           </Row>
           <Row className="grupredict-chart-row" >

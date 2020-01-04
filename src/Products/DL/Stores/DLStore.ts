@@ -13,6 +13,10 @@ class DLStore {
     name: 'real',
     data: [],
   };
+  @observable predictSHIndexData: stockData = {
+    name: 'predict',
+    data: [],
+  };
   @observable currentStockData: stockData = {
     name: 'real',
     data: [],
@@ -20,6 +24,36 @@ class DLStore {
   @observable predictStockData: stockData = {
     name: 'predict',
     data: [],
+  };
+
+  @action getPredictIndexData = () => {
+    let url = `${urlBase}/v1/stockData/getGRUPredictData`;
+    let reqBody = {
+      stock_name: "000001.SH",
+      start_date: moment().subtract(15, 'days').format('YYYYMMDD'),
+      end_date: moment().add(3, 'days').format('YYYYMMDD'),
+    };
+
+    axios.post(url, reqBody).then((data) => {
+      let predictSHIndexData: stockData = {
+        name: 'predict',
+        data: [],
+      };
+      let items: any = data.data;
+      items.sort((a: any, b: any) => moment(a.trade_date, "YYYYMMDD").diff(moment(b.trade_date, "YYYYMMDD")));
+      for(let i = 0; i < items.length; i++) {
+        let singleData = {
+          name: items[i].stock_name,
+          x: moment(items[i].trade_date, "YYYYMMDD").valueOf(),
+          y: -1,
+        };
+        if(parseInt(items[i].predict_result)) {
+          singleData.y = 1;
+        }
+        predictSHIndexData.data.push(singleData);
+      }
+      this.predictSHIndexData = predictSHIndexData;
+    });
   }
 
   @action getIndexData = () => {

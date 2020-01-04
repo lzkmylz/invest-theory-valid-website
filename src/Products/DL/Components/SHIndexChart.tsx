@@ -89,7 +89,7 @@ class SHIndexChart extends React.Component {
               },
           }
       },
-      series: [DLStore.SHIndexData],
+      series: [DLStore.SHIndexData, DLStore.predictSHIndexData],
       navigation: {
           menuItemStyle: {
               fontSize: '10px'

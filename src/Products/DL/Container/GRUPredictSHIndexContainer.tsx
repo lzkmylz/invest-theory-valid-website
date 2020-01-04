@@ -12,6 +12,7 @@ import SHIndexChart from '../Components/SHIndexChart';
 class GRUPredictSHIndexContainer extends React.Component<HistoryInterface> {
   componentDidMount() {
     DLStore.getIndexData();
+    DLStore.getPredictIndexData();
   }
 
   render() {
