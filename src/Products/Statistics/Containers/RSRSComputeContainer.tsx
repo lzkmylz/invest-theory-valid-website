@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Card } from 'antd';
+import ReactMarkdown from 'react-markdown';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import { HistoryInterface } from '../../../Utils/Interfaces';
@@ -11,7 +12,20 @@ import StatisticsStore from '../Stores/StatisticsStore';
 
 @observer
 class RSRSComputeContainer extends React.Component<HistoryInterface> {
+  state = {
+    instructionText: ''
+  }
+
+  componentDidMount = () => {
+    const instructionReadPath = require('../MdTexts/RSRSComputeMD.md');
+    fetch(instructionReadPath)
+    .then(res => res.text())
+    .then(text => this.setState({ instructionText: text }));
+  }
+
   render() {
+    const { instructionText } = this.state;
+
     return (
       <div className="rsrs-container" >
         <Header history={this.props.history} />
@@ -39,6 +53,16 @@ class RSRSComputeContainer extends React.Component<HistoryInterface> {
               <h2>RSRS Compute Result: {StatisticsStore.rsrsScore}</h2> :
               ''
             }
+          </div>
+          <div className="rsrs-instruction" >
+            <Card
+              title="Instruction"
+            >
+              <ReactMarkdown
+                escapeHtml={false}
+                source={instructionText}
+              />
+            </Card>
           </div>
         </div>
         <Footer />
