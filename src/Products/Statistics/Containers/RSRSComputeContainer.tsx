@@ -4,6 +4,7 @@ import { Breadcrumb } from 'antd';
 import Header from '../../../Index/Component/IndexHeader';
 import Footer from '../../../Index/Component/IndexFooter';
 import { HistoryInterface } from '../../../Utils/Interfaces';
+import RSRSComputeForm from '../Component/RSRSComputeForm';
 
 import '../Style/RSRSComputeContainer.scss';
 
@@ -30,7 +31,10 @@ class RSRSComputeContainer extends React.Component<HistoryInterface> {
               RSRS Compute
             </h1>
           </div>
-          
+          <RSRSComputeForm history={this.props.history} />
+          <div className="rsrs-result" >
+            <h2>RSRS Compute Result: </h2>
+          </div>
         </div>
         <Footer />
       </div>
