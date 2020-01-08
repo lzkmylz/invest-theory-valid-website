@@ -4,4 +4,4 @@ The RSRS indicator is used to send buy signal or sell signal. This indicator is 
 
 # Usage
 
-When the RSRS indicator go up over 0.6 can be seen as a buy signal. And when it go down less than 0.6 can be seen as a sell signal.
+When the RSRS indicator go up over 0.6 can be seen as a buy signal. And when it go down less than -0.6 can be seen as a sell signal.

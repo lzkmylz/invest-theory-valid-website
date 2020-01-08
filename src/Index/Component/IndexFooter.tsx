@@ -7,7 +7,7 @@ class IndexFooter extends React.Component {
       <div
         className="index-footer-container background-light" 
       >
-        <p>@2019 Author: lzkmylz</p>
+        <p>&copy;{new Date().getFullYear()} Author: lzkmylz</p>
         <p>lzkmylz@gmail.com</p>
       </div>
     )
